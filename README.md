@@ -1,7 +1,7 @@
 # Layan Alwattar — Portfolio & Admin Portal
 
-
 All about me: my projects, courses, research, certificates and achievements.
+
 Personal-brand website (EN/AR) with a full admin portal.
 **Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Supabase (Auth, Postgres, Storage) · Netlify.
 
