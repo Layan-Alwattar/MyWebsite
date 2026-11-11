@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
+import { Toaster } from 'sonner';
+import { Sidebar } from '@/components/admin/sidebar';
 import { requireAdmin } from '@/lib/auth';
+import { createClient } from '@/lib/supabase/server';
 import { signOut } from '../actions';
 
 export const metadata: Metadata = {
@@ -8,26 +11,28 @@ export const metadata: Metadata = {
 };
 
 /**
- * Shell for every protected admin page. requireAdmin() redirects anyone who
- * isn't in admin_users. The full sidebar navigation arrives in phase (b).
+ * Shell for every protected admin page. requireAdmin() redirects anyone
+ * who isn't listed in admin_users.
  */
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const admin = await requireAdmin();
 
+  const supabase = await createClient();
+  const { count: unread } = await supabase
+    .from('contact_messages')
+    .select('*', { count: 'exact', head: true })
+    .eq('is_read', false);
+
   return (
-    <div className="min-h-screen bg-[#FFF7F9] text-[#2B1B2E]">
-      <header className="flex items-center justify-between border-b border-[#F1DDE7] bg-white px-6 py-3">
-        <span className="font-semibold">Portfolio Admin</span>
-        <div className="flex items-center gap-4 text-sm text-[#6E5A70]">
-          <span>{admin.email}</span>
-          <form action={signOut}>
-            <button type="submit" className="rounded-lg px-3 py-1.5 hover:bg-[#FCE8F0]">
-              Sign out
-            </button>
-          </form>
-        </div>
-      </header>
-      <main className="mx-auto max-w-5xl p-6">{children}</main>
+    <div className="min-h-screen bg-blush-50 text-ink lg:flex">
+      <a href="#admin-main" className="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50 focus:rounded-xl focus:bg-white focus:px-4 focus:py-2 focus:shadow">
+        Skip to content
+      </a>
+      <Sidebar email={admin.email} unread={unread ?? 0} signOut={signOut} />
+      <main id="admin-main" className="min-w-0 flex-1 px-4 py-6 md:px-8">
+        <div className="mx-auto max-w-5xl">{children}</div>
+      </main>
+      <Toaster position="bottom-right" richColors closeButton />
     </div>
   );
 }

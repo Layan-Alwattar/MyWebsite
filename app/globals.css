@@ -1,8 +1,27 @@
 @import 'tailwindcss';
 
-/* Temporary base styles; replaced by the theme system in phase (c). */
-:root {
-  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+/*
+ * Design tokens.
+ * Fixed "blush" palette is used by the admin portal. The public site's
+ * theme colors (editable in /admin/theme) are added as CSS variables in phase (c).
+ */
+@theme {
+  --color-blush-50: #fff7f9;
+  --color-blush-100: #fce8f0;
+  --color-blush-200: #f7d0e0;
+  --color-blush-300: #f0a9c6;
+  --color-blush-400: #e87da9;
+  --color-blush-500: #e05a8e;
+  --color-blush-600: #c53e75;
+  --color-blush-700: #a8275e;
+  --color-blush-800: #8f1f4f;
+  --color-blush-900: #5e1434;
+  --color-ink: #2b1b2e;
+  --color-muted: #6e5a70;
+  --color-line: #f1dde7;
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-arabic: var(--font-plex-arabic), 'Segoe UI', Tahoma, sans-serif;
 }
 
 html {
@@ -12,4 +31,114 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+}
+
+/* Arabic inputs/editors use an Arabic-friendly font. */
+[lang='ar'] {
+  font-family: var(--font-arabic);
+}
+
+/* ---------- Rich text (Tiptap editor + rendered content) ---------- */
+.prose-rich {
+  line-height: 1.7;
+}
+.prose-rich > * + * {
+  margin-top: 0.75em;
+}
+.prose-rich h2 {
+  font-size: 1.4em;
+  font-weight: 700;
+  margin-top: 1.2em;
+}
+.prose-rich h3 {
+  font-size: 1.15em;
+  font-weight: 700;
+  margin-top: 1em;
+}
+.prose-rich ul {
+  list-style: disc;
+  padding-inline-start: 1.4em;
+}
+.prose-rich ol {
+  list-style: decimal;
+  padding-inline-start: 1.4em;
+}
+.prose-rich blockquote {
+  border-inline-start: 3px solid var(--color-blush-300);
+  padding-inline-start: 1em;
+  color: var(--color-muted);
+  font-style: italic;
+}
+.prose-rich a {
+  color: var(--color-blush-700);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-rich code {
+  background: var(--color-blush-100);
+  border-radius: 0.3em;
+  padding: 0.1em 0.35em;
+  font-size: 0.9em;
+}
+.prose-rich pre {
+  background: #2b1b2e;
+  color: #fce8f0;
+  border-radius: 0.75rem;
+  padding: 1em;
+  overflow-x: auto;
+}
+.prose-rich pre code {
+  background: none;
+  padding: 0;
+}
+.prose-rich img {
+  border-radius: 0.75rem;
+  max-width: 100%;
+  height: auto;
+}
+.prose-rich hr {
+  border: 0;
+  border-top: 1px solid var(--color-line);
+}
+/* Tiptap placeholder on the first empty paragraph */
+.prose-rich p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: #b9a6b6;
+  float: inline-start;
+  height: 0;
+  pointer-events: none;
+}
+
+/* ---------- Chart palette ----------
+ * Categorical series colors, validated with the dataviz palette checker
+ * (lightness band, chroma, colorblind separation, contrast) against
+ * white cards (light) and #251A2D (dark). Order matters — keep it.
+ */
+:root {
+  --viz-1: #d6457f; /* pink   */
+  --viz-2: #2a78d6; /* blue   */
+  --viz-3: #e89a00; /* amber  */
+  --viz-4: #6a55d8; /* violet */
+  --viz-5: #1baf7a; /* teal   */
+  --viz-6: #eb6834; /* coral  */
+  --viz-other: #a39aa2;
+  --viz-surface: #ffffff;
+  --viz-ink: #2b1b2e;
+  --viz-muted: #6e5a70;
+  --viz-grid: #f1e4ea;
+  --viz-axis: #d9c6d0;
+}
+:root.dark {
+  --viz-1: #d9558a;
+  --viz-2: #3987e5;
+  --viz-3: #c98500;
+  --viz-4: #9085e9;
+  --viz-5: #199e70;
+  --viz-6: #d95926;
+  --viz-other: #7d7280;
+  --viz-surface: #251a2d;
+  --viz-ink: #f7edf3;
+  --viz-muted: #c3b2c6;
+  --viz-grid: #382a42;
+  --viz-axis: #4a3a55;
 }
