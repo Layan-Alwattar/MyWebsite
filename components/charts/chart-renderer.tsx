@@ -38,7 +38,9 @@ const OTHER = 'var(--viz-other)';
 
 const axisProps = {
   stroke: 'var(--viz-axis)',
-  tick: { fill: 'var(--viz-muted)', fontSize: 12 },
+  // Physical (ltr) anchoring + "plaintext": each label picks its own reading order, so "25–34" or "65+"
+  // keep their order inside right-to-left pages while Arabic labels stay RTL.
+  tick: { fill: 'var(--viz-muted)', fontSize: 12, direction: 'ltr', unicodeBidi: 'plaintext' },
   tickLine: false,
 } as const;
 
@@ -86,7 +88,22 @@ export function ChartRenderer({
   }
 
   const xAxis = <XAxis dataKey={x} {...axisProps} reversed={dir === 'rtl'} label={opts.xLabel ? { value: opts.xLabel, position: 'insideBottom', offset: -4, fill: 'var(--viz-muted)', fontSize: 12 } : undefined} />;
-  const yAxis = <YAxis {...axisProps} orientation={dir === 'rtl' ? 'right' : 'left'} tickFormatter={formatNumber} width={56} label={opts.yLabel ? { value: opts.yLabel, angle: -90, position: 'insideLeft', fill: 'var(--viz-muted)', fontSize: 12 } : undefined} />;
+  // Wide enough for the longest tick (the axis may round up past the max), plus the axis title.
+  const maxValue = Math.max(0, ...data.flatMap((r) => keys.map((k) => (typeof r[k] === 'number' ? Math.abs(r[k] as number) : 0))));
+  const yWidth = Math.max(44, formatNumber(maxValue * 1.25).length * 7.5 + 12) + (opts.yLabel ? 20 : 0);
+  const yAxis = (
+    <YAxis
+      {...axisProps}
+      orientation={dir === 'rtl' ? 'right' : 'left'}
+      tickFormatter={formatNumber}
+      width={yWidth}
+      label={
+        opts.yLabel
+          ? { value: opts.yLabel, angle: -90, position: dir === 'rtl' ? 'insideRight' : 'insideLeft', style: { textAnchor: 'middle' }, fill: 'var(--viz-muted)', fontSize: 12 }
+          : undefined
+      }
+    />
+  );
   const grid = <CartesianGrid stroke="var(--viz-grid)" vertical={false} />;
   const legend = multi ? <Legend wrapperStyle={{ fontSize: 13, color: 'var(--viz-ink)' }} iconType="circle" /> : null;
   const margin = { top: 8, right: 12, bottom: opts.xLabel ? 16 : 4, left: 0 };
@@ -100,8 +117,15 @@ export function ChartRenderer({
           {grid}
           {horizontal ? (
             <>
-              <XAxis type="number" {...axisProps} tickFormatter={formatNumber} />
-              <YAxis type="category" dataKey={x} {...axisProps} width={110} />
+              <XAxis type="number" {...axisProps} tickFormatter={formatNumber} reversed={dir === 'rtl'} />
+              <YAxis
+                type="category"
+                dataKey={x}
+                {...axisProps}
+                orientation={dir === 'rtl' ? 'right' : 'left'}
+                // Fit the longest label (≈6.5px per character at 12px), within limits.
+                width={Math.min(220, Math.max(60, Math.max(...data.map((r) => String(r[x] ?? '').length)) * 6.5 + 12))}
+              />
             </>
           ) : (
             <>
@@ -118,7 +142,7 @@ export function ChartRenderer({
               fill={SERIES[i]}
               stackId={opts.stacked ? 'stack' : undefined}
               // Rounded data-end only; surface stroke = 2px gap between stacked segments.
-              radius={opts.stacked && i < keys.length - 1 ? 0 : horizontal ? [0, 4, 4, 0] : [4, 4, 0, 0]}
+              radius={opts.stacked && i < keys.length - 1 ? 0 : horizontal ? (dir === 'rtl' ? [4, 0, 0, 4] : [0, 4, 4, 0]) : [4, 4, 0, 0]}
               stroke={opts.stacked ? 'var(--viz-surface)' : undefined}
               strokeWidth={opts.stacked ? 2 : 0}
               maxBarSize={48}

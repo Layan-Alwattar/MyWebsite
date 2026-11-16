@@ -5,7 +5,8 @@
  * copy URL and delete. In "pick" mode (onPick set) it's used inside the
  * media picker modal and clicking a file selects it.
  */
-import { Check, Copy, FileText, Film, Database, File as FileIcon, Trash2 } from 'lucide-react';
+import { Check, Copy, FileText, Film, Database, File as FileIcon, Palette, PencilLine, Trash2 } from 'lucide-react';
+import { stylizeImage, type ImageStyle } from '@/lib/stylize';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import type { MediaAccept } from '@/lib/admin/fields';
@@ -184,14 +185,50 @@ export function MediaLibrary({ accept = 'any', onPick }: { accept?: MediaAccept;
         </ul>
       )}
 
-      {!onPick && selected && <MediaDetails key={selected.id} item={selected} onDelete={onDelete} onSaved={load} />}
+      {!onPick && selected && (
+        <MediaDetails
+          key={selected.id}
+          item={selected}
+          onDelete={onDelete}
+          onSaved={load}
+          onCreated={(row) => {
+            setItems((prev) => [row, ...(prev ?? [])]);
+            setSelectedId(row.id);
+          }}
+        />
+      )}
     </div>
   );
 }
 
-function MediaDetails({ item, onDelete, onSaved }: { item: MediaRow; onDelete: (m: MediaRow) => void; onSaved: () => void }) {
+function MediaDetails({
+  item,
+  onDelete,
+  onSaved,
+  onCreated,
+}: {
+  item: MediaRow;
+  onDelete: (m: MediaRow) => void;
+  onSaved: () => void;
+  onCreated: (m: MediaRow) => void;
+}) {
   const [alt, setAlt] = useState(item.alt ?? { en: '', ar: '' });
   const [copied, setCopied] = useState(false);
+  const [styling, setStyling] = useState<ImageStyle | null>(null);
+
+  async function makeStyled(style: ImageStyle) {
+    setStyling(style);
+    try {
+      const file = await stylizeImage(item.url, style, displayName(item.path));
+      const row = await uploadMedia(file);
+      toast.success(`${style === 'sketch' ? 'Sketch' : 'Cartoon'} copy added — the original is unchanged`);
+      onCreated(row);
+    } catch (e) {
+      toast.error((e as Error).message);
+    } finally {
+      setStyling(null);
+    }
+  }
 
   return (
     <section aria-label="File details" className="grid gap-5 rounded-2xl border border-line bg-white p-5 md:grid-cols-[240px_1fr]">
@@ -246,6 +283,16 @@ function MediaDetails({ item, onDelete, onSaved }: { item: MediaRow; onDelete: (
             >
               Save alt text
             </Button>
+          )}
+          {item.kind === 'image' && (
+            <>
+              <Button variant="secondary" size="sm" disabled={styling !== null} onClick={() => makeStyled('sketch')}>
+                <PencilLine size={16} /> {styling === 'sketch' ? 'Drawing…' : 'Sketch copy'}
+              </Button>
+              <Button variant="secondary" size="sm" disabled={styling !== null} onClick={() => makeStyled('cartoon')}>
+                <Palette size={16} /> {styling === 'cartoon' ? 'Painting…' : 'Cartoon copy'}
+              </Button>
+            </>
           )}
           <a href={item.url} target="_blank" rel="noreferrer" className="inline-flex items-center rounded-xl px-3 py-1.5 text-sm font-semibold text-blush-700 hover:bg-blush-100">
             Open

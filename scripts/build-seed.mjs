@@ -87,6 +87,10 @@ function refresh(table, target, cols, extra = []) {
 }
 const publishedAt = (table) => `published_at = coalesce(public.${table}.published_at, excluded.published_at)`;
 
+/** Dataset column list inferred from the rows. */
+const columnsOf = (rows) =>
+  Object.keys(rows[0] ?? {}).map((name) => ({ name, type: typeof rows[0][name] === 'number' ? 'number' : 'string' }));
+
 const sql = [];
 const emit = (s) => sql.push(s.trim() + '\n');
 
@@ -115,17 +119,33 @@ update public.site_settings set
 where id = 1 and coalesce(full_name->>'en', '') = '';`);
 
 // Settings fields written by an earlier seed: refresh each one only while it
-// still holds exactly that earlier value (so admin edits are kept).
-const seeded = JSON.parse(readFileSync(new URL('../supabase/seed/settings-v1.json', import.meta.url), 'utf8'));
+// still holds a value some seed wrote (so admin edits are kept).
+// settings-history.json records every value this script has written; it is
+// updated automatically below, so just edit content.mjs and re-run.
+const HISTORY = new URL('../supabase/seed/settings-history.json', import.meta.url);
+const history = JSON.parse(readFileSync(HISTORY, 'utf8'));
+/** JSON with sorted keys, to compare values the way jsonb equality does. */
+const canon = (v) =>
+  JSON.stringify(v, (_, x) =>
+    x && typeof x === 'object' && !Array.isArray(x) ? Object.fromEntries(Object.entries(x).sort(([a], [b]) => a.localeCompare(b))) : x,
+  );
 const settingsNow = {
+  tagline: s.tagline,
+  hero_tags: s.hero_tags,
+  interests: s.interests,
   about_story: { en: md(s.about_story.en), ar: md(s.about_story.ar) },
   stats: s.stats,
   fun_facts: s.fun_facts,
+  cv_url: s.cv_url,
 };
 for (const [field, value] of Object.entries(settingsNow)) {
+  const previous = history[field] ?? [];
+  if (!previous.length) throw new Error(`settings-history.json has no entry for ${field}`);
   emit(`update public.site_settings set ${field} = ${json(value)}
-where id = 1 and ${field} = ${json(seeded[field])};`);
+where id = 1 and ${field} in (${previous.map(json).join(', ')});`);
+  if (!previous.some((v) => canon(v) === canon(value))) previous.push(value);
 }
+writeFileSync(HISTORY, `${JSON.stringify(history, null, 1)}\n`);
 
 // ---------------------------------------------------------------- social links
 
@@ -180,6 +200,17 @@ select ${uid(`media:${p.slug}:${j}`)}, id, 'image', ${lit(url)}, ${i18n({ en, ar
 from public.projects where slug = ${lit(p.slug)}
 on conflict (id) do nothing;`),
   );
+  (p.charts ?? []).forEach((ch, j) => {
+    const dsId = uid(`dataset:${p.slug}:${ch.key}`);
+    emit(`insert into public.datasets (id, name, source_format, columns, rows, row_count)
+values (${dsId}, ${lit(ch.dataset_name)}, 'json', ${json(columnsOf(ch.rows))}, ${json(ch.rows)}, ${ch.rows.length})
+${refresh('datasets', 'id', ['name', 'columns', 'rows', 'row_count'])}`);
+    emit(`insert into public.charts (id, dataset_id, title, caption, chart_type, x_column, y_columns, options, project_id, status, position)
+select ${uid(`chart:${p.slug}:${ch.key}`)}, ${dsId}, ${i18n(ch.title)}, ${i18n(ch.caption)}, ${lit(ch.chart_type)},
+  ${lit(ch.x_column)}, ${arr(ch.y_columns)}, ${json({ aggregate: 'none', sort: 'none', xLabel: '', yLabel: '', ...ch.options })}, id, 'published', ${j}
+from public.projects where slug = ${lit(p.slug)}
+${refresh('charts', 'id', ['title', 'caption', 'chart_type', 'x_column', 'y_columns', 'options', 'position'])}`);
+  });
 });
 
 // ---------------------------------------------------------------- skills

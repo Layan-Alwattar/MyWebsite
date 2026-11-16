@@ -67,3 +67,13 @@ components/             shared UI
 proxy.ts                refreshes the session and redirects signed-out users away from /admin
 supabase/migrations/    database schema, security, defaults
 ```
+
+## Content scripts
+
+| Command | What it does |
+| --- | --- |
+| `node scripts/build-seed.mjs` | Regenerates `supabase/seed.sql` from `supabase/seed/content.mjs`. Re-running the SQL adds new rows and refreshes rows never edited in the admin; admin edits are kept. |
+| `node scripts/build-cv.mjs` | Builds the English and Arabic CV PDFs (`public/content/cv/`) from the same content, using Edge or Chrome in headless mode. The phone number is left out on purpose. |
+| `python scripts/analysis/accidents_charts.py <accident.csv>` | Recomputes the Qatar traffic-accident chart data (2021–2024) into `supabase/seed/data/`. |
+
+**Sketch / cartoon photos:** in Admin → Media, select an image and choose *Sketch copy* or *Cartoon copy*. The effect runs in your browser and saves a new file; the original is kept.

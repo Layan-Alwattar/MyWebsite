@@ -1,0 +1,610 @@
+{
+ "about_story": [
+  {
+   "ar": {
+    "type": "doc",
+    "content": [
+     {
+      "type": "paragraph",
+      "content": [
+       {
+        "text": "تخرّجت في علوم الحاسب من جامعة قطر (دفعة 2026)، وأحب تحويل الأفكار إلى منتجات يستخدمها الناس فعلاً — من نماذج تعلّم الآلة إلى تطبيقات الجوال التي تعمل في الوقت الفعلي.",
+        "type": "text"
+       }
+      ]
+     },
+     {
+      "type": "paragraph",
+      "content": [
+       {
+        "text": "علّمني مشروع التخرج ",
+        "type": "text"
+       },
+       {
+        "text": "إيفنتورا",
+        "type": "text",
+        "marks": [
+         {
+          "type": "bold"
+         }
+        ]
+       },
+       {
+        "text": " ما يتطلبه إطلاق منتج حقيقي: بنيت تكامل تطبيق Flutter مع Supabase — القنوات اللحظية، وأمان مستوى الصفوف، والمشغّلات والمهام المجدولة في قاعدة البيانات، والسياج الجغرافي عبر GPS، ونظام إشعارات ذكي — ونسّقته مع لوحة تحكم الويب التي بناها زملائي.",
+        "type": "text"
+       }
+      ]
+     },
+     {
+      "type": "paragraph",
+      "content": [
+       {
+        "text": "وفي مجال الذكاء الاصطناعي، بنيت مسارات تعلّم آلة على أكثر من 16,000 سجل، ووصلت إلى دقة 99% في تصنيف صور أورام الدماغ باستخدام التعلّم بالنقل، وشاركت في برامج بحثية في مركز جامعة قطر للعلماء الشباب.",
+        "type": "text"
+       }
+      ]
+     },
+     {
+      "type": "paragraph",
+      "content": [
+       {
+        "text": "أهتم بالتصميم ثنائي اللغة وسهل الوصول (العربية والإنجليزية مع دعم كامل للاتجاه من اليمين لليسار)، وبالتواصل الواضح، وببناء ما يخدم المجتمع — مثل ",
+        "type": "text"
+       },
+       {
+        "text": "تفهيم",
+        "type": "text",
+        "marks": [
+         {
+          "type": "bold"
+         }
+        ]
+       },
+       {
+        "text": "، منصة التدبّر القرآني التي أقود تطويرها.",
+        "type": "text"
+       }
+      ]
+     }
+    ]
+   },
+   "en": {
+    "type": "doc",
+    "content": [
+     {
+      "type": "paragraph",
+      "content": [
+       {
+        "text": "I’m a Computer Science graduate from Qatar University (Class of 2026) who loves turning ideas into products people actually use — from machine-learning models to real-time mobile apps.",
+        "type": "text"
+       }
+      ]
+     },
+     {
+      "type": "paragraph",
+      "content": [
+       {
+        "text": "My senior capstone, ",
+        "type": "text"
+       },
+       {
+        "text": "Eventura",
+        "type": "text",
+        "marks": [
+         {
+          "type": "bold"
+         }
+        ]
+       },
+       {
+        "text": ", taught me what it takes to ship: I built the Flutter app’s backend integration on Supabase — real-time channels, row-level security, database triggers and cron jobs, GPS geofencing and a context-aware notification system — and coordinated it with a web dashboard built by my teammates.",
+        "type": "text"
+       }
+      ]
+     },
+     {
+      "type": "paragraph",
+      "content": [
+       {
+        "text": "On the AI side, I’ve built ML pipelines on 16,000+ records, reached 99% accuracy classifying brain-tumor MRI scans with transfer learning, and taken part in research programs at the Qatar University Young Scientists Center.",
+        "type": "text"
+       }
+      ]
+     },
+     {
+      "type": "paragraph",
+      "content": [
+       {
+        "text": "I care about bilingual, accessible design (Arabic and English, full RTL), clear communication, and building things that serve a community — like ",
+        "type": "text"
+       },
+       {
+        "text": "Tafheem",
+        "type": "text",
+        "marks": [
+         {
+          "type": "bold"
+         }
+        ]
+       },
+       {
+        "text": ", a Qur’anic reflection platform where I lead development.",
+        "type": "text"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "en": {
+    "type": "doc",
+    "content": [
+     {
+      "type": "paragraph",
+      "content": [
+       {
+        "type": "text",
+        "text": "I’m a Computer Science graduate from Qatar University (Class of 2026) who loves turning ideas into products people actually use — from machine-learning models to real-time mobile apps."
+       }
+      ]
+     },
+     {
+      "type": "paragraph",
+      "content": [
+       {
+        "type": "text",
+        "text": "My senior capstone, "
+       },
+       {
+        "type": "text",
+        "text": "Eventura",
+        "marks": [
+         {
+          "type": "bold"
+         }
+        ]
+       },
+       {
+        "type": "text",
+        "text": ", taught me what it takes to ship: I built the Flutter app’s backend integration on Supabase — real-time channels, row-level security, database triggers and cron jobs, GPS geofencing and a context-aware notification system — and coordinated it with a web dashboard built by my teammates."
+       }
+      ]
+     },
+     {
+      "type": "paragraph",
+      "content": [
+       {
+        "type": "text",
+        "text": "On the AI side, I’ve built ML pipelines on 16,000+ records, reached 99% accuracy classifying brain-tumor MRI scans with transfer learning, and taken part in research programs at the Qatar University Young Scientists Center."
+       }
+      ]
+     },
+     {
+      "type": "paragraph",
+      "content": [
+       {
+        "type": "text",
+        "text": "I care about bilingual, accessible design (Arabic and English, full RTL), clear communication, and building things that serve a community — like "
+       },
+       {
+        "type": "text",
+        "text": "Tafheem",
+        "marks": [
+         {
+          "type": "bold"
+         }
+        ]
+       },
+       {
+        "type": "text",
+        "text": ", a Qur’anic reflection platform where I lead development."
+       }
+      ]
+     },
+     {
+      "type": "paragraph",
+      "content": [
+       {
+        "type": "text",
+        "text": "Right now I’m building the web platform and interactive learning games for "
+       },
+       {
+        "type": "text",
+        "text": "Shatharat Educational Training Center",
+        "marks": [
+         {
+          "type": "bold"
+         }
+        ]
+       },
+       {
+        "type": "text",
+        "text": ", and interning with the IT department at Al Arqam Academy for Girls."
+       }
+      ]
+     }
+    ]
+   },
+   "ar": {
+    "type": "doc",
+    "content": [
+     {
+      "type": "paragraph",
+      "content": [
+       {
+        "type": "text",
+        "text": "تخرّجت في علوم الحاسب من جامعة قطر (دفعة 2026)، وأحب تحويل الأفكار إلى منتجات يستخدمها الناس فعلاً — من نماذج تعلّم الآلة إلى تطبيقات الجوال التي تعمل في الوقت الفعلي."
+       }
+      ]
+     },
+     {
+      "type": "paragraph",
+      "content": [
+       {
+        "type": "text",
+        "text": "علّمني مشروع التخرج "
+       },
+       {
+        "type": "text",
+        "text": "إيفنتورا",
+        "marks": [
+         {
+          "type": "bold"
+         }
+        ]
+       },
+       {
+        "type": "text",
+        "text": " ما يتطلبه إطلاق منتج حقيقي: بنيت تكامل تطبيق Flutter مع Supabase — القنوات اللحظية، وأمان مستوى الصفوف، والمشغّلات والمهام المجدولة في قاعدة البيانات، والسياج الجغرافي عبر GPS، ونظام إشعارات ذكي — ونسّقته مع لوحة تحكم الويب التي بناها زملائي."
+       }
+      ]
+     },
+     {
+      "type": "paragraph",
+      "content": [
+       {
+        "type": "text",
+        "text": "وفي مجال الذكاء الاصطناعي، بنيت مسارات تعلّم آلة على أكثر من 16,000 سجل، ووصلت إلى دقة 99% في تصنيف صور أورام الدماغ باستخدام التعلّم بالنقل، وشاركت في برامج بحثية في مركز جامعة قطر للعلماء الشباب."
+       }
+      ]
+     },
+     {
+      "type": "paragraph",
+      "content": [
+       {
+        "type": "text",
+        "text": "أهتم بالتصميم ثنائي اللغة وسهل الوصول (العربية والإنجليزية مع دعم كامل للاتجاه من اليمين لليسار)، وبالتواصل الواضح، وببناء ما يخدم المجتمع — مثل "
+       },
+       {
+        "type": "text",
+        "text": "تفهيم",
+        "marks": [
+         {
+          "type": "bold"
+         }
+        ]
+       },
+       {
+        "type": "text",
+        "text": "، منصة التدبّر القرآني التي أقود تطويرها."
+       }
+      ]
+     },
+     {
+      "type": "paragraph",
+      "content": [
+       {
+        "type": "text",
+        "text": "أعمل حالياً على بناء المنصة الإلكترونية والألعاب التعليمية التفاعلية لـ"
+       },
+       {
+        "type": "text",
+        "text": "مركز شذرات للتدريب التربوي",
+        "marks": [
+         {
+          "type": "bold"
+         }
+        ]
+       },
+       {
+        "type": "text",
+        "text": "، وأتدرّب في قسم تقنية المعلومات بأكاديمية الأرقم للبنات."
+       }
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "stats": [
+  [
+   {
+    "label": {
+     "ar": "مشروعاً منجزاً",
+     "en": "Projects shipped"
+    },
+    "value": 10,
+    "suffix": "+"
+   },
+   {
+    "label": {
+     "ar": "مستخدم متزامن في اختبار إيفنتورا",
+     "en": "Concurrent users tested on Eventura"
+    },
+    "value": 500,
+    "suffix": ""
+   },
+   {
+    "label": {
+     "ar": "دقة تصنيف أورام الدماغ",
+     "en": "Brain-tumor classification accuracy"
+    },
+    "value": 99,
+    "suffix": "%"
+   },
+   {
+    "label": {
+     "ar": "برنامجان بحثيان",
+     "en": "Research programs"
+    },
+    "value": 2,
+    "suffix": ""
+   }
+  ],
+  [
+   {
+    "value": 15,
+    "suffix": "+",
+    "label": {
+     "en": "Projects shipped",
+     "ar": "مشروعاً منجزاً"
+    }
+   },
+   {
+    "value": 500,
+    "suffix": "",
+    "label": {
+     "en": "Concurrent users tested on Eventura",
+     "ar": "مستخدم متزامن في اختبار إيفنتورا"
+    }
+   },
+   {
+    "value": 99,
+    "suffix": "%",
+    "label": {
+     "en": "Brain-tumor classification accuracy",
+     "ar": "دقة تصنيف أورام الدماغ"
+    }
+   },
+   {
+    "value": 3,
+    "suffix": "",
+    "label": {
+     "en": "Research internships",
+     "ar": "تدريبات بحثية"
+    }
+   }
+  ]
+ ],
+ "fun_facts": [
+  [
+   {
+    "text": {
+     "ar": "شاركت في تنظيم أسبوع الذكاء الاصطناعي 2025 في جامعة قطر.",
+     "en": "I helped organize Qatar University’s AI Week 2025."
+    },
+    "emoji": "🎤"
+   },
+   {
+    "text": {
+     "ar": "أتممت دورة تأهيل المعلمين لمنهاج اقرأ لتعليم العربية للناطقين بها وبغيرها.",
+     "en": "I completed Iqra teacher training for teaching Arabic to native and non-native speakers."
+    },
+    "emoji": "📚"
+   },
+   {
+    "text": {
+     "ar": "شاركت في النسخة الأولى من ماراثون القصص المصورة (كوميكس ثون 2026).",
+     "en": "I took part in QU’s first illustrated story marathon (ComicsThon 2026)."
+    },
+    "emoji": "💬"
+   }
+  ],
+  [
+   {
+    "emoji": "🎤",
+    "text": {
+     "en": "I helped organize Qatar University’s AI Week 2025.",
+     "ar": "شاركت في تنظيم أسبوع الذكاء الاصطناعي 2025 في جامعة قطر."
+    }
+   },
+   {
+    "emoji": "📚",
+    "text": {
+     "en": "I completed Iqra teacher training for teaching Arabic to native and non-native speakers.",
+     "ar": "أتممت دورة تأهيل المعلمين لمنهاج اقرأ لتعليم العربية للناطقين بها وبغيرها."
+    }
+   },
+   {
+    "emoji": "💬",
+    "text": {
+     "en": "I took part in QU’s first illustrated story marathon (ComicsThon 2026).",
+     "ar": "شاركت في النسخة الأولى من ماراثون القصص المصورة (كوميكس ثون 2026)."
+    }
+   },
+   {
+    "emoji": "🎮",
+    "text": {
+     "en": "I design interactive story games that teach children skills like managing anger.",
+     "ar": "أصمّم ألعاباً قصصية تفاعلية تعلّم الأطفال مهارات مثل إدارة الغضب."
+    }
+   },
+   {
+    "emoji": "🇹🇷",
+    "text": {
+     "en": "Arabic is my native language, I work in English, and I’m learning Turkish (A1, TÖMER).",
+     "ar": "العربية لغتي الأم، وأعمل بالإنجليزية، وأتعلّم التركية (المستوى A1، تومر)."
+    }
+   }
+  ]
+ ],
+ "tagline": [
+  {
+   "ar": "خريجة علوم الحاسب من جامعة قطر، أبني مسارات تعلّم آلة متكاملة وتحليلات تنبؤية ومنتجات برمجية ثنائية اللغة تعمل في الوقت الفعلي.",
+   "en": "Computer Science graduate from Qatar University building end-to-end machine learning pipelines, predictive analytics, and bilingual, real-time full-stack products."
+  },
+  {
+   "en": "Computer Science graduate from Qatar University. I build machine-learning models, tell stories with data, and ship bilingual web and mobile products — today, learning platforms and games for children at Shatharat.",
+   "ar": "خريجة علوم الحاسب من جامعة قطر. أبني نماذج تعلّم الآلة، وأروي القصص بالبيانات، وأطلق منتجات ويب وجوال ثنائية اللغة — واليوم أبني منصات وألعاباً تعليمية للأطفال في شذرات."
+  }
+ ],
+ "hero_tags": [
+  [
+   {
+    "ar": "تعلّم الآلة",
+    "en": "Machine Learning"
+   },
+   {
+    "ar": "التعلّم العميق",
+    "en": "Deep Learning"
+   },
+   {
+    "ar": "علم البيانات",
+    "en": "Data Science"
+   },
+   {
+    "ar": "بايثون",
+    "en": "Python"
+   },
+   {
+    "ar": "التحليلات الجغرافية",
+    "en": "Geospatial Analytics"
+   },
+   {
+    "ar": "تطوير الويب المتكامل",
+    "en": "Full-Stack Development"
+   }
+  ],
+  [
+   {
+    "en": "Machine Learning",
+    "ar": "تعلّم الآلة"
+   },
+   {
+    "en": "Deep Learning",
+    "ar": "التعلّم العميق"
+   },
+   {
+    "en": "Data Science",
+    "ar": "علم البيانات"
+   },
+   {
+    "en": "Python",
+    "ar": "بايثون"
+   },
+   {
+    "en": "Full-Stack Development",
+    "ar": "تطوير الويب المتكامل"
+   },
+   {
+    "en": "Flutter",
+    "ar": "Flutter"
+   },
+   {
+    "en": "EdTech",
+    "ar": "التقنية التعليمية"
+   }
+  ]
+ ],
+ "interests": [
+  [
+   {
+    "icon": "brain",
+    "label": {
+     "ar": "تعلّم الآلة",
+     "en": "Machine learning"
+    }
+   },
+   {
+    "icon": "smartphone",
+    "label": {
+     "ar": "تطبيقات الجوال",
+     "en": "Mobile apps"
+    }
+   },
+   {
+    "icon": "map",
+    "label": {
+     "ar": "البيانات الجغرافية",
+     "en": "Geospatial data"
+    }
+   },
+   {
+    "icon": "languages",
+    "label": {
+     "ar": "التصميم ثنائي اللغة",
+     "en": "Bilingual design"
+    }
+   },
+   {
+    "icon": "book-open",
+    "label": {
+     "ar": "تعليم العربية",
+     "en": "Teaching Arabic"
+    }
+   }
+  ],
+  [
+   {
+    "icon": "brain",
+    "label": {
+     "en": "Machine learning",
+     "ar": "تعلّم الآلة"
+    }
+   },
+   {
+    "icon": "smartphone",
+    "label": {
+     "en": "Mobile apps",
+     "ar": "تطبيقات الجوال"
+    }
+   },
+   {
+    "icon": "map",
+    "label": {
+     "en": "Geospatial data",
+     "ar": "البيانات الجغرافية"
+    }
+   },
+   {
+    "icon": "gamepad-2",
+    "label": {
+     "en": "Learning games",
+     "ar": "الألعاب التعليمية"
+    }
+   },
+   {
+    "icon": "languages",
+    "label": {
+     "en": "Bilingual design",
+     "ar": "التصميم ثنائي اللغة"
+    }
+   },
+   {
+    "icon": "book-open",
+    "label": {
+     "en": "Teaching Arabic",
+     "ar": "تعليم العربية"
+    }
+   }
+  ]
+ ],
+ "cv_url": [
+  {},
+  {
+   "en": "/content/cv/layan-alwattar-cv-en.pdf",
+   "ar": "/content/cv/layan-alwattar-cv-ar.pdf"
+  }
+ ]
+}

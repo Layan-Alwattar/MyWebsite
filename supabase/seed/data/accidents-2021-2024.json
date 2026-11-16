@@ -1,0 +1,302 @@
+{
+ "n": 825108,
+ "year": [
+  {
+   "Year": "2021",
+   "Accidents": 193392
+  },
+  {
+   "Year": "2022",
+   "Accidents": 213421
+  },
+  {
+   "Year": "2023",
+   "Accidents": 203611
+  },
+  {
+   "Year": "2024",
+   "Accidents": 214684
+  }
+ ],
+ "hour": [
+  {
+   "Hour": 0,
+   "Accidents": 15301
+  },
+  {
+   "Hour": 1,
+   "Accidents": 25752
+  },
+  {
+   "Hour": 2,
+   "Accidents": 22038
+  },
+  {
+   "Hour": 3,
+   "Accidents": 20708
+  },
+  {
+   "Hour": 4,
+   "Accidents": 22508
+  },
+  {
+   "Hour": 5,
+   "Accidents": 25340
+  },
+  {
+   "Hour": 6,
+   "Accidents": 35116
+  },
+  {
+   "Hour": 7,
+   "Accidents": 49221
+  },
+  {
+   "Hour": 8,
+   "Accidents": 52689
+  },
+  {
+   "Hour": 9,
+   "Accidents": 54993
+  },
+  {
+   "Hour": 10,
+   "Accidents": 58586
+  },
+  {
+   "Hour": 11,
+   "Accidents": 55285
+  },
+  {
+   "Hour": 12,
+   "Accidents": 51600
+  },
+  {
+   "Hour": 13,
+   "Accidents": 38224
+  },
+  {
+   "Hour": 14,
+   "Accidents": 34760
+  },
+  {
+   "Hour": 15,
+   "Accidents": 33217
+  },
+  {
+   "Hour": 16,
+   "Accidents": 37053
+  },
+  {
+   "Hour": 17,
+   "Accidents": 36295
+  },
+  {
+   "Hour": 18,
+   "Accidents": 33007
+  },
+  {
+   "Hour": 19,
+   "Accidents": 32335
+  },
+  {
+   "Hour": 20,
+   "Accidents": 31508
+  },
+  {
+   "Hour": 21,
+   "Accidents": 25892
+  },
+  {
+   "Hour": 22,
+   "Accidents": 20166
+  },
+  {
+   "Hour": 23,
+   "Accidents": 13514
+  }
+ ],
+ "severe_hour": [
+  {
+   "Hour": 0,
+   "Heavy or fatal per 1,000": 11.1
+  },
+  {
+   "Hour": 1,
+   "Heavy or fatal per 1,000": 4.9
+  },
+  {
+   "Hour": 2,
+   "Heavy or fatal per 1,000": 4.2
+  },
+  {
+   "Hour": 3,
+   "Heavy or fatal per 1,000": 4.9
+  },
+  {
+   "Hour": 4,
+   "Heavy or fatal per 1,000": 3.4
+  },
+  {
+   "Hour": 5,
+   "Heavy or fatal per 1,000": 4.4
+  },
+  {
+   "Hour": 6,
+   "Heavy or fatal per 1,000": 3.4
+  },
+  {
+   "Hour": 7,
+   "Heavy or fatal per 1,000": 2.0
+  },
+  {
+   "Hour": 8,
+   "Heavy or fatal per 1,000": 1.5
+  },
+  {
+   "Hour": 9,
+   "Heavy or fatal per 1,000": 1.5
+  },
+  {
+   "Hour": 10,
+   "Heavy or fatal per 1,000": 1.6
+  },
+  {
+   "Hour": 11,
+   "Heavy or fatal per 1,000": 1.8
+  },
+  {
+   "Hour": 12,
+   "Heavy or fatal per 1,000": 1.8
+  },
+  {
+   "Hour": 13,
+   "Heavy or fatal per 1,000": 2.7
+  },
+  {
+   "Hour": 14,
+   "Heavy or fatal per 1,000": 3.4
+  },
+  {
+   "Hour": 15,
+   "Heavy or fatal per 1,000": 3.2
+  },
+  {
+   "Hour": 16,
+   "Heavy or fatal per 1,000": 3.3
+  },
+  {
+   "Hour": 17,
+   "Heavy or fatal per 1,000": 3.4
+  },
+  {
+   "Hour": 18,
+   "Heavy or fatal per 1,000": 4.5
+  },
+  {
+   "Hour": 19,
+   "Heavy or fatal per 1,000": 4.7
+  },
+  {
+   "Hour": 20,
+   "Heavy or fatal per 1,000": 5.6
+  },
+  {
+   "Hour": 21,
+   "Heavy or fatal per 1,000": 5.8
+  },
+  {
+   "Hour": 22,
+   "Heavy or fatal per 1,000": 6.4
+  },
+  {
+   "Hour": 23,
+   "Heavy or fatal per 1,000": 8.1
+  }
+ ],
+ "simple_pct": 95.2,
+ "severity": [
+  {
+   "Severity": "Light injury",
+   "Accidents": 31538
+  },
+  {
+   "Severity": "Heavy injury",
+   "Accidents": 1751
+  },
+  {
+   "Severity": "Fatal",
+   "Accidents": 645
+  }
+ ],
+ "known": 710849,
+ "zones": [
+  {
+   "Zone": "Zone 56 · Mesaimeer / Ain Khaled",
+   "Accidents": 75370
+  },
+  {
+   "Zone": "Zone 55 · Al Waab / Al Aziziya",
+   "Accidents": 55070
+  },
+  {
+   "Zone": "Zone 57 · Industrial Area",
+   "Accidents": 40564
+  },
+  {
+   "Zone": "Zone 71 · Umm Slal Mohammed",
+   "Accidents": 37138
+  },
+  {
+   "Zone": "Zone 53 · New Al Rayyan / Muaither",
+   "Accidents": 33391
+  },
+  {
+   "Zone": "Zone 70 · Lusail / Al Daayen",
+   "Accidents": 30046
+  },
+  {
+   "Zone": "Zone 90 · Al Wakra",
+   "Accidents": 29657
+  },
+  {
+   "Zone": "Zone 51 · Al Gharrafa",
+   "Accidents": 27424
+  },
+  {
+   "Zone": "Zone 91 · Al Wukair",
+   "Accidents": 26044
+  },
+  {
+   "Zone": "Zone 52 · Al Luqta / Old Al Rayyan",
+   "Accidents": 24508
+  }
+ ],
+ "age": [
+  {
+   "Driver age": "16–24",
+   "Accidents": 87698
+  },
+  {
+   "Driver age": "25–34",
+   "Accidents": 221286
+  },
+  {
+   "Driver age": "35–44",
+   "Accidents": 215402
+  },
+  {
+   "Driver age": "45–54",
+   "Accidents": 109889
+  },
+  {
+   "Driver age": "55–64",
+   "Accidents": 43266
+  },
+  {
+   "Driver age": "65+",
+   "Accidents": 12873
+  }
+ ],
+ "age_n": 690414
+}
