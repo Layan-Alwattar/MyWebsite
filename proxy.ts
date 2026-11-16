@@ -1,28 +1,40 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { updateSession } from '@/lib/supabase/session';
 
+const LOCALES = ['en', 'ar'];
+
 /**
- * Runs before every /admin request (Next.js 16 "proxy", formerly middleware).
- *  - keeps the Supabase session fresh
- *  - sends signed-out visitors to /admin/login
- * The real admin check (is this user in admin_users?) happens server-side in
- * requireAdmin(), so this is a fast first gate, not the only one.
+ * Runs before matching requests (Next.js 16 "proxy", formerly middleware).
+ *
+ * /admin/*  → keeps the Supabase session fresh and sends signed-out
+ *             visitors to /admin/login (requireAdmin() is the real check).
+ * other     → paths without a language prefix are redirected to /en or /ar,
+ *             based on the visitor's browser language.
  */
 export async function proxy(request: NextRequest) {
-  const { response, isSignedIn } = await updateSession(request);
   const { pathname, search } = request.nextUrl;
-  const isLoginPage = pathname === '/admin/login';
 
-  if (!isSignedIn && !isLoginPage) {
-    const url = request.nextUrl.clone();
-    url.pathname = '/admin/login';
-    url.search = `?next=${encodeURIComponent(pathname + search)}`;
-    return NextResponse.redirect(url);
+  if (pathname.startsWith('/admin')) {
+    const { response, isSignedIn } = await updateSession(request);
+    if (!isSignedIn && pathname !== '/admin/login') {
+      const url = request.nextUrl.clone();
+      url.pathname = '/admin/login';
+      url.search = `?next=${encodeURIComponent(pathname + search)}`;
+      return NextResponse.redirect(url);
+    }
+    return response;
   }
 
-  return response;
+  const hasLocale = LOCALES.some((l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`));
+  if (hasLocale) return NextResponse.next();
+
+  const preferred = (request.headers.get('accept-language') ?? '').toLowerCase().trim().startsWith('ar') ? 'ar' : 'en';
+  const url = request.nextUrl.clone();
+  url.pathname = `/${preferred}${pathname === '/' ? '' : pathname}`;
+  return NextResponse.redirect(url);
 }
 
 export const config = {
-  matcher: ['/admin/:path*'],
+  // Everything except API routes, Next internals, metadata files and static files (anything with a dot).
+  matcher: ['/((?!api|_next|sitemap.xml|robots.txt|.*\\..*).*)'],
 };

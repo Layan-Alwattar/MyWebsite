@@ -5,7 +5,7 @@ All about me: my projects, courses, research, certificates and achievements.
 Personal-brand website (EN/AR) with a full admin portal.
 **Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Supabase (Auth, Postgres, Storage) · Netlify.
 
-> 🚧 Built in phases. Done so far: **(a) database + auth**. This README grows with each phase.
+> 🚧 Built in phases. Done so far: **(a) database + auth · (b) admin portal · (c) public site + initial content**.
 
 ## Run locally
 
@@ -33,6 +33,19 @@ npm run dev                  # http://localhost:3000
 4. **Grant admin rights.** Run `supabase/make-admin.sql` in the SQL Editor (edit the email first if needed).
 
 Then open `/admin`, sign in, and the dashboard should show counts (3 themes, 9 sections).
+
+5. **Load the initial portfolio content.** Run `supabase/seed.sql` in the SQL Editor. It adds projects,
+   skills, certificates, timeline, social links, About/Hero text and the SRIP 2026 analysis (EN + AR).
+   Safe to run again — it never duplicates rows or overwrites edits you made in the admin.
+   To change the starting content, edit `supabase/seed/content.mjs` and run `node scripts/build-seed.mjs`.
+
+## Public site
+
+- Lives at `/en` and `/ar` (`/` redirects by browser language). Arabic pages are fully right-to-left.
+- Sections, order, colors, fonts and animation level all come from the admin portal.
+- Images for published content are in `public/content/`. Images for **draft** items are kept in
+  `private-assets/` (git-ignored) — upload them in **Admin → Media** when you publish those items.
+- SEO: per-page metadata, hreflang alternates, `sitemap.xml`, `robots.txt`, generated Open Graph image.
 
 ## How security works
 

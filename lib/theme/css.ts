@@ -54,8 +54,10 @@ export function themeToCss(theme: Theme) {
     `--font-heading-ar:'${safeFont(theme.fonts.headingAr)}',var(--font-body);` +
     `--font-body-ar:'${safeFont(theme.fonts.bodyAr)}',Tahoma,sans-serif;`;
 
+  // --c-on-primary: label color on primary-ink buttons (checked in the theme editor).
+  const darkBg = isHexColor(theme.colors.dark.bg) ? theme.colors.dark.bg : '#1A1220';
   return [
-    `:root{${shared}${paletteVars(theme.colors.light)}color-scheme:light;}`,
-    `:root.dark{${paletteVars(theme.colors.dark)}color-scheme:dark;}`,
+    `:root{${shared}${paletteVars(theme.colors.light)}--c-on-primary:#FFFFFF;color-scheme:light;}`,
+    `:root.dark{${paletteVars(theme.colors.dark)}--c-on-primary:${darkBg};color-scheme:dark;}`,
   ].join('\n');
 }

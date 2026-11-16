@@ -10,3 +10,6 @@ yarn-error.log*
 # keep the template
 !.env.example
 *.tsbuildinfo
+
+# Images for draft items — upload via /admin/media when approved (never commit)
+/private-assets

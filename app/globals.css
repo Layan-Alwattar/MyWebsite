@@ -142,3 +142,157 @@ body {
   --viz-grid: #382a42;
   --viz-axis: #4a3a55;
 }
+
+/* =============================================================================
+ * Public site theme tokens. Values come from the active theme in the database
+ * (injected as --c-* variables by app/[locale]/layout.tsx), so the theme editor
+ * restyles everything without a rebuild.
+ * ========================================================================== */
+@theme inline {
+  --color-page: var(--c-bg);
+  --color-card: var(--c-surface);
+  --color-primary: var(--c-primary);
+  --color-primary-ink: var(--c-primary-ink);
+  --color-secondary: var(--c-secondary);
+  --color-accent: var(--c-accent);
+  --color-fg: var(--c-ink);
+  --color-fg-muted: var(--c-muted);
+  --font-display: var(--font-heading);
+  --font-body: var(--font-body);
+  --radius-theme: var(--radius);
+}
+
+/* Arabic pages swap to the theme's Arabic fonts. */
+:root[lang='ar'] {
+  --font-heading: var(--font-heading-ar);
+  --font-body: var(--font-body-ar);
+}
+
+.site-body {
+  background: var(--c-bg);
+  color: var(--c-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.site-body ::selection {
+  background: color-mix(in srgb, var(--c-primary) 35%, transparent);
+  color: var(--c-ink);
+}
+
+/* Visible, on-brand focus ring for keyboard users. */
+.site-body :focus-visible {
+  outline: 2.5px solid var(--c-primary-ink);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Rich text inside the public site uses theme colors. */
+.prose-site {
+  color: var(--c-ink);
+  font-size: 1.0625rem;
+}
+.prose-site h3 {
+  font-family: var(--font-heading);
+  font-size: 1.35em;
+}
+.prose-site a {
+  color: var(--c-primary-ink);
+}
+.prose-site blockquote {
+  border-color: var(--c-primary);
+  color: var(--c-muted);
+}
+.prose-site code {
+  background: color-mix(in srgb, var(--c-secondary) 25%, transparent);
+}
+.prose-site ul li::marker {
+  color: var(--c-primary);
+}
+.prose-site strong {
+  color: var(--c-ink);
+  font-weight: 700;
+}
+
+/* Soft gradient text used on key words. */
+.text-gradient {
+  background: linear-gradient(100deg, var(--c-primary-ink), color-mix(in srgb, var(--c-secondary) 70%, var(--c-primary-ink)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Washi tape strip for polaroid cards. */
+.washi {
+  position: absolute;
+  inset-block-start: -12px;
+  inset-inline-start: 50%;
+  width: 92px;
+  height: 26px;
+  translate: -50% 0;
+  rotate: -3deg;
+  background:
+    repeating-linear-gradient(45deg, transparent 0 6px, color-mix(in srgb, white 35%, transparent) 6px 12px),
+    color-mix(in srgb, var(--c-accent) 70%, transparent);
+  opacity: 0.9;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.06);
+  z-index: 2;
+}
+:root[dir='rtl'] .washi {
+  translate: 50% 0;
+}
+
+.polaroid {
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.04),
+    0 12px 32px -14px color-mix(in srgb, var(--c-primary) 45%, transparent);
+}
+
+/* Slow-drifting background blobs. Motion scales with the theme's --motion. */
+@keyframes blob-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(calc(30px * var(--motion, 1)), calc(-40px * var(--motion, 1))) scale(1.06);
+  }
+  66% {
+    transform: translate(calc(-25px * var(--motion, 1)), calc(20px * var(--motion, 1))) scale(0.96);
+  }
+}
+.blob {
+  animation: blob-drift 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(calc(-8px * var(--motion, 1)));
+  }
+}
+.float {
+  animation: float-y 6s ease-in-out infinite;
+}
+
+/* Respect visitors who ask for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .blob,
+  .float {
+    animation: none !important;
+  }
+}
+
+/* Theme editor "Animation: off" */
+[data-motion='off'] .blob,
+[data-motion='off'] .float {
+  animation: none !important;
+}
