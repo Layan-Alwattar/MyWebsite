@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { About } from '@/components/site/sections/about';
 import { Analyses, Certificates, Projects, Reflections } from '@/components/site/sections/collections';
+import { CvQr, cvUrl } from '@/components/site/cv-qr';
 import { ContactForm } from '@/components/site/sections/contact';
 import { Hero } from '@/components/site/sections/hero';
 import { Skills } from '@/components/site/sections/skills';
@@ -86,6 +87,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   intro={tr(settings.contact_intro, locale)}
                 />
                 <SocialLinks links={socials} locale={locale} />
+                {cvUrl(settings, locale) && <CvQr locale={locale} dict={dict} />}
               </div>
               <Reveal className="relative rounded-theme bg-[color-mix(in_srgb,var(--c-surface)_75%,transparent)] p-6 shadow-sm backdrop-blur md:p-8">
                 <ContactForm locale={locale} dict={dict} email={settings.contact_email} />

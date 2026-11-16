@@ -5,6 +5,7 @@ import type { Settings, SocialLink } from '@/lib/site/data';
 import type { Dictionary } from '@/lib/site/dictionary';
 import { Reveal } from '../motion';
 import { Blobs, btnPrimary, btnSecondary, Chip, SocialLinks } from '../ui';
+import { cvUrl } from '../cv-qr';
 
 /** Animated intro: name, title, tagline, photo in a soft blob frame, CTAs. */
 export function Hero({
@@ -22,7 +23,7 @@ export function Hero({
 }) {
   const name = tr(settings.full_name, locale);
   const firstName = name.split(' ')[0];
-  const cv = settings.cv_url?.[locale] || settings.cv_url?.en || settings.cv_url?.ar;
+  const cv = cvUrl(settings, locale);
   const tags = (settings.hero_tags ?? []).map((t) => tr(t, locale)).filter(Boolean);
 
   return (

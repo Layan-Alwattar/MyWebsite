@@ -4,11 +4,11 @@
  *   node scripts/build-seed.mjs
  *
  * The SQL is safe to run more than once: rows use deterministic ids
- * (md5 of a stable key) and "on conflict do nothing", and site settings
- * are only filled while still empty — so it never overwrites edits made
- * in the admin portal.
+ * (md5 of a stable key). Re-running it adds new rows and refreshes rows that
+ * were never edited in the admin portal; anything changed in the admin is
+ * left alone.
  */
-import { writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import * as c from '../supabase/seed/content.mjs';
 
@@ -41,21 +41,51 @@ function md(text) {
   if (!text) return null;
   const content = [];
   for (const block of text.trim().split(/\n\s*\n/)) {
-    const lines = block.split('\n').map((l) => l.trim()).filter(Boolean);
-    if (lines.every((l) => l.startsWith('- '))) {
-      content.push({
-        type: 'bulletList',
-        content: lines.map((l) => ({ type: 'listItem', content: [{ type: 'paragraph', content: inline(l.slice(2)) }] })),
-      });
-    } else if (lines.length === 1 && lines[0].startsWith('## ')) {
-      content.push({ type: 'heading', attrs: { level: 2 }, content: inline(lines[0].slice(3)) });
-    } else {
-      content.push({ type: 'paragraph', content: inline(lines.join(' ')) });
+    let para = [];
+    let list = [];
+    const flushPara = () => {
+      if (para.length) content.push({ type: 'paragraph', content: inline(para.join(' ')) });
+      para = [];
+    };
+    const flushList = () => {
+      if (list.length)
+        content.push({
+          type: 'bulletList',
+          content: list.map((l) => ({ type: 'listItem', content: [{ type: 'paragraph', content: inline(l) }] })),
+        });
+      list = [];
+    };
+    for (const line of block.split('\n').map((l) => l.trim()).filter(Boolean)) {
+      if (line.startsWith('## ')) {
+        flushPara();
+        flushList();
+        content.push({ type: 'heading', attrs: { level: 2 }, content: inline(line.slice(3)) });
+      } else if (line.startsWith('- ')) {
+        flushPara();
+        list.push(line.slice(2));
+      } else {
+        flushList();
+        para.push(line);
+      }
     }
+    flushPara();
+    flushList();
   }
   return { type: 'doc', content };
 }
 const rich = (v) => json(v ? { en: md(v.en), ar: md(v.ar) } : { en: null, ar: null });
+
+/**
+ * "on conflict" clause that refreshes a row from this file only while it has
+ * never been edited in the admin (created_at = updated_at). Resetting
+ * created_at to now() keeps the two equal after the refresh, because the
+ * updated_at trigger also uses now(), which is fixed for the transaction.
+ */
+function refresh(table, target, cols, extra = []) {
+  const sets = cols.map((col) => `${col} = excluded.${col}`).concat(extra, ['created_at = now()']);
+  return `on conflict (${target}) do update set\n  ${sets.join(', ')}\nwhere public.${table}.created_at = public.${table}.updated_at;`;
+}
+const publishedAt = (table) => `published_at = coalesce(public.${table}.published_at, excluded.published_at)`;
 
 const sql = [];
 const emit = (s) => sql.push(s.trim() + '\n');
@@ -84,13 +114,26 @@ update public.site_settings set
   seo_description = ${i18n(s.seo_description)}
 where id = 1 and coalesce(full_name->>'en', '') = '';`);
 
+// Settings fields written by an earlier seed: refresh each one only while it
+// still holds exactly that earlier value (so admin edits are kept).
+const seeded = JSON.parse(readFileSync(new URL('../supabase/seed/settings-v1.json', import.meta.url), 'utf8'));
+const settingsNow = {
+  about_story: { en: md(s.about_story.en), ar: md(s.about_story.ar) },
+  stats: s.stats,
+  fun_facts: s.fun_facts,
+};
+for (const [field, value] of Object.entries(settingsNow)) {
+  emit(`update public.site_settings set ${field} = ${json(value)}
+where id = 1 and ${field} = ${json(seeded[field])};`);
+}
+
 // ---------------------------------------------------------------- social links
 
 emit('-- Social links');
 c.socialLinks.forEach((l, i) =>
   emit(`insert into public.social_links (id, platform, label, url, visible, position)
 values (${uid('social:' + l.platform)}, ${lit(l.platform)}, ${i18n(l.label)}, ${lit(l.url)}, true, ${i})
-on conflict (id) do nothing;`),
+${refresh('social_links', 'id', ['label', 'url', 'position'])}`),
 );
 
 // ---------------------------------------------------------------- projects
@@ -99,7 +142,7 @@ emit('-- Project categories');
 c.projectCategories.forEach((cat, i) =>
   emit(`insert into public.project_categories (id, slug, name, position)
 values (${uid('category:' + cat.slug)}, ${lit(cat.slug)}, ${i18n(cat.name)}, ${i})
-on conflict (slug) do nothing;`),
+${refresh('project_categories', 'slug', ['name', 'position'])}`),
 );
 
 emit('-- Projects');
@@ -113,7 +156,18 @@ values (${id}, ${lit(p.slug)}, ${i18n(p.title)}, ${i18n(p.label)}, ${i18n(p.summ
   ${arr(p.tools)}, ${lit(p.cover_url)}, ${lit(p.video_url)}, ${lit(p.prototype_url)}, ${lit(p.github_url)},
   ${lit(p.demo_url)}, ${lit(p.report_url)}, ${lit(p.start_date)}, ${lit(p.end_date)}, ${Boolean(p.is_ongoing)},
   ${Boolean(p.featured)}, ${lit(p.status)}, ${i}, ${p.status === 'published' ? 'now()' : 'null'})
-on conflict (slug) do nothing;`);
+${refresh(
+  'projects',
+  'slug',
+  ['title', 'label', 'summary', 'description', 'problem', 'approach', 'results', 'learnings', 'tools', 'cover_url',
+    'video_url', 'prototype_url', 'github_url', 'demo_url', 'report_url', 'start_date', 'end_date', 'is_ongoing',
+    'featured', 'status', 'position'],
+  [publishedAt('projects')],
+)}`);
+  // Drop category links this file no longer lists (unedited projects only).
+  emit(`delete from public.project_category_links l using public.projects p
+where l.project_id = p.id and p.slug = ${lit(p.slug)} and p.created_at = p.updated_at
+  and l.category_id not in (select id from public.project_categories where slug = any(${arr(p.categories)}));`);
   for (const cat of p.categories ?? []) {
     emit(`insert into public.project_category_links (project_id, category_id)
 select p.id, c.id from public.projects p, public.project_categories c
@@ -134,12 +188,12 @@ emit('-- Skills');
 c.skillCategories.forEach((cat, i) => {
   emit(`insert into public.skill_categories (id, name, icon, status, position)
 values (${uid('skillcat:' + cat.key)}, ${i18n(cat.name)}, ${lit(cat.icon)}, 'published', ${i})
-on conflict (id) do nothing;`);
+${refresh('skill_categories', 'id', ['name', 'icon', 'position'])}`);
   cat.skills.forEach((skill, j) => {
     const [en, ar] = Array.isArray(skill) ? skill : [skill, skill];
     emit(`insert into public.skills (id, category_id, name, status, position)
 values (${uid(`skill:${cat.key}:${en}`)}, ${uid('skillcat:' + cat.key)}, ${i18n({ en, ar })}, 'published', ${j})
-on conflict (id) do nothing;`);
+${refresh('skills', 'id', ['name', 'position'])}`);
   });
 });
 
@@ -152,7 +206,8 @@ c.certificates.forEach((cert, i) =>
 values (${uid('cert:' + cert.slug)}, ${lit(cert.slug)}, ${i18n(cert.title)}, ${i18n(cert.provider)}, ${lit(cert.issued_on)},
   ${lit(cert.credential_url)}, ${lit(cert.image_url)}, ${lit(cert.pdf_url)}, ${rich(cert.summary)},
   ${rich(cert.what_i_learned)}, ${rich(cert.what_i_gained)}, ${arr(cert.skills)}, ${lit(cert.status)}, ${i})
-on conflict (slug) do nothing;`),
+${refresh('certificates', 'slug', ['title', 'provider', 'issued_on', 'credential_url', 'image_url', 'pdf_url', 'summary',
+  'what_i_learned', 'what_i_gained', 'skills', 'status', 'position'])}`),
 );
 
 // ---------------------------------------------------------------- timeline
@@ -164,8 +219,12 @@ c.timeline.forEach((t, i) =>
 values (${uid('timeline:' + t.key)}, ${lit(t.kind)}, ${i18n(t.title)}, ${i18n(t.organization)}, ${i18n(t.location)},
   ${lit(t.start_date)}, ${lit(t.end_date)}, ${Boolean(t.is_current)}, ${i18n(t.date_label)}, ${i18n(t.description)},
   ${json(t.highlights ?? [])}, ${lit(t.icon)}, ${lit(t.link_url)}, 'published', ${i})
-on conflict (id) do nothing;`),
+${refresh('timeline_items', 'id', ['kind', 'title', 'organization', 'location', 'start_date', 'end_date', 'is_current',
+  'date_label', 'description', 'highlights', 'icon', 'link_url', 'position'])}`),
 );
+// Entries an earlier seed added but this file no longer has (removed only if unedited).
+for (const key of c.removedTimelineKeys ?? [])
+  emit(`delete from public.timeline_items where id = ${uid('timeline:' + key)} and created_at = updated_at;`);
 
 // ---------------------------------------------------------------- analyses + charts
 
@@ -174,12 +233,12 @@ c.analyses.forEach((a, i) => {
   emit(`insert into public.analyses (id, slug, title, summary, insights, cover_url, tools, status, position, published_at)
 values (${uid('analysis:' + a.slug)}, ${lit(a.slug)}, ${i18n(a.title)}, ${i18n(a.summary)}, ${rich(a.insights)},
   ${lit(a.cover_url)}, ${arr(a.tools)}, ${lit(a.status)}, ${i}, ${a.status === 'published' ? 'now()' : 'null'})
-on conflict (slug) do nothing;`);
+${refresh('analyses', 'slug', ['title', 'summary', 'insights', 'cover_url', 'tools', 'status', 'position'], [publishedAt('analyses')])}`);
   if (a.dataset) {
     const d = a.dataset;
     emit(`insert into public.datasets (id, name, source_format, columns, rows, row_count)
 values (${uid('dataset:' + a.slug)}, ${lit(d.name)}, 'json', ${json(d.columns)}, ${json(d.rows)}, ${d.rows.length})
-on conflict (id) do nothing;`);
+${refresh('datasets', 'id', ['name', 'columns', 'rows', 'row_count'])}`);
   }
   if (a.chart) {
     const ch = a.chart;
@@ -187,14 +246,15 @@ on conflict (id) do nothing;`);
 select ${uid('chart:' + a.slug)}, ${uid('dataset:' + a.slug)}, ${i18n(ch.title)}, ${i18n(ch.caption)}, ${lit(ch.chart_type)},
   ${lit(ch.x_column)}, ${arr(ch.y_columns)}, ${json(ch.options)}, id, 'published', 0
 from public.analyses where slug = ${lit(a.slug)}
-on conflict (id) do nothing;`);
+${refresh('charts', 'id', ['title', 'caption', 'chart_type', 'x_column', 'y_columns', 'options'])}`);
   }
 });
 
 const header = `-- =============================================================================
 -- Portfolio content seed — GENERATED by scripts/build-seed.mjs from
 -- supabase/seed/content.mjs. Edit that file, then: node scripts/build-seed.mjs
--- Safe to run more than once (won't duplicate rows or overwrite admin edits).
+-- Safe to run more than once: adds new rows and refreshes rows you never
+-- edited in the admin. Your admin edits are never overwritten.
 -- =============================================================================
 `;
 
