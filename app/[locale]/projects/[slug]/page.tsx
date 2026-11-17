@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import { GithubIcon } from '@/components/icons/brand';
 import { ChartsBlock } from '@/components/site/charts-block';
 import { DetailHero, DetailSection, StoryBlock } from '@/components/site/detail';
+import { LiveBadge } from '@/components/site/live-badge';
 import { Gallery, PrototypeEmbed, VideoPlayer } from '@/components/site/media';
 import { Reveal } from '@/components/site/motion';
 import { btnPrimary, btnSecondary, Chip } from '@/components/site/ui';
@@ -47,7 +48,7 @@ export default async function ProjectPage({ params }: Props) {
   const dict = getDictionary(locale);
   const title = tr(p.title, locale);
 
-  const date = p.is_ongoing ? dict.ongoing : formatRange({ start: p.start_date, end: p.end_date }, locale);
+  const date = formatRange({ start: p.start_date, end: p.end_date, current: p.is_ongoing }, locale);
   const idx = all.findIndex((x) => x.slug === slug);
   const prev = idx > 0 ? all[idx - 1] : null;
   const next = idx >= 0 && idx < all.length - 1 ? all[idx + 1] : null;
@@ -63,6 +64,7 @@ export default async function ProjectPage({ params }: Props) {
         intro={tr(p.summary, locale)}
         meta={
           <>
+            {p.is_ongoing && <LiveBadge label={dict.inProgress} className="py-1" />}
             {date && (
               <span className="inline-flex items-center gap-1.5 text-sm font-medium text-fg-muted">
                 <CalendarDays size={15} aria-hidden /> {date}

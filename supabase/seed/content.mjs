@@ -268,47 +268,91 @@ As Lead Developer, I own the technical architecture and backend for Phase 1 (MVP
     status: 'published',
     featured: true,
     categories: ['full-stack'],
-    title: { en: 'Shatharat — Training Center Platform & Learning Games', ar: 'شذرات — منصة مركز تدريب وألعاب تعليمية' },
-    label: { en: 'Software Developer & EdTech Lead · Ongoing', ar: 'مطوّرة برمجيات وقائدة التقنية التعليمية · مستمر' },
+    title: { en: 'Shatharat — Training Center Website & Platform', ar: 'شذرات — موقع ومنصة مركز التدريب' },
+    label: { en: 'Software Developer & EdTech Lead', ar: 'مطوّرة برمجيات وقائدة التقنية التعليمية' },
     summary: {
-      en: 'The official website of Shatharat Educational Training Center (shatharat.qa), interactive story games for children, and a course-management system now in planning.',
-      ar: 'الموقع الرسمي لمركز شذرات للتدريب التربوي (shatharat.qa)، وألعاب قصصية تفاعلية للأطفال، ونظام لإدارة الدورات قيد التخطيط.',
+      en: 'The official website of Shatharat Educational Training Center (shatharat.qa), which I keep developing and improving, and the course-management system that comes next.',
+      ar: 'الموقع الرسمي لمركز شذرات للتدريب التربوي (shatharat.qa) الذي أواصل تطويره وتحسينه، ونظام إدارة الدورات الذي يأتي بعده.',
     },
-    tools: ['Supabase', 'PostgreSQL', 'Cloudflare', 'JavaScript', 'HTML/CSS', 'Arabic UX', 'Game design'],
+    tools: ['Supabase', 'PostgreSQL', 'Cloudflare', 'JavaScript', 'HTML/CSS', 'Arabic UX'],
     is_ongoing: true,
     start_date: '2026-10-04',
     demo_url: 'https://shatharat.qa',
     description: {
-      en: `I’m the center’s developer: I built and launched its website on a Qatari .qa domain, behind Cloudflare, with a secure Supabase cloud database. The site introduces the center and its achievements and lets interested families register safely. Visitors to the **Aqwamu Qeela exhibition** will discover the center through it.`,
-      ar: `أعمل مطوّرةً للمركز: بنيت موقعه وأطلقته على نطاق قطري ‎.qa خلف Cloudflare مع قاعدة بيانات سحابية آمنة على Supabase. يعرّف الموقع بالمركز وإنجازاته ويتيح للأسر المهتمة التسجيل بأمان، وسيتعرّف زوّار **معرض أقوم قيلا** على المركز من خلاله.`,
+      en: `I’m the center’s developer: I built and launched its website on a Qatari .qa domain, behind Cloudflare, with a secure Supabase cloud database. The site introduces the center and its achievements and lets interested families register safely. Visitors to the **Aqwamu Qeela exhibition** discover the center through it.
+
+The website is live and I keep developing and improving it. The learning games I built for the exhibition are a separate, finished project.`,
+      ar: `أعمل مطوّرةً للمركز: بنيت موقعه وأطلقته على نطاق قطري ‎.qa خلف Cloudflare مع قاعدة بيانات سحابية آمنة على Supabase. يعرّف الموقع بالمركز وإنجازاته ويتيح للأسر المهتمة التسجيل بأمان، ويتعرّف زوّار **معرض أقوم قيلا** على المركز من خلاله.
+
+الموقع منشور وأواصل تطويره وتحسينه، أما الألعاب التعليمية التي بنيتها للمعرض فهي مشروع مستقل مكتمل.`,
     },
     approach: {
-      en: `## Interactive games for the exhibition
-For the center’s corner at the exhibition, I programmed an interactive game for each training program, shown on an interactive screen:
-
-- **Beautiful & Modest:** teaches children appropriate, modest clothing at home and in public, in a playful, child-friendly way
-- **Anger management:** an interactive story where the child is the hero and chooses the path the story takes
-- …and several more games for children
-
-## Course-management system (planned in phases)
+      en: `## Course-management system (planned in phases)
 I ran a requirements survey with the center’s team and turned it into a phased plan:
 
 - **Phase 1:** the public website — programs, schedules, trainers, news and articles
 - **Phase 2:** online registration, a database of families, students and courses, an admin dashboard, Excel exports and fee tracking
 - **Phase 3:** parent and trainer accounts, attendance and achievement portfolios for every student, reminders, and later a mobile app`,
-      ar: `## ألعاب تفاعلية للمعرض
-لركن المركز في المعرض، برمجت لعبة تفاعلية لكل حقيبة تدريبية تُعرض على شاشة تفاعلية:
-
-- **جميلة ومحتشمة:** تعلّم الأطفال اللباس المحتشم واللائق في المنزل والأماكن العامة بأسلوب جميل ومناسب لهم
-- **إدارة الغضب:** قصة تفاعلية يكون فيها الطفل هو البطل ويختار المسار الذي تسير فيه القصة
-- …وألعاب أخرى متعددة للأطفال
-
-## نظام إدارة الدورات (على مراحل)
+      ar: `## نظام إدارة الدورات (على مراحل)
 أجريت استبياناً لاحتياجات فريق المركز وحوّلته إلى خطة مرحلية:
 
 - **المرحلة الأولى:** الموقع العام — البرامج والمواعيد والمدربات والأخبار والمقالات
 - **المرحلة الثانية:** التسجيل الإلكتروني، وقاعدة بيانات للأهالي والطلاب والدورات، ولوحة تحكم، وتصدير إلى Excel، ومتابعة الرسوم
 - **المرحلة الثالثة:** حسابات للأهالي والمدربات، وملف حضور وإنجاز لكل طالب، وتذكيرات، ثم تطبيق جوال لاحقاً`,
+    },
+  },
+  {
+    slug: 'shatharat-learning-games',
+    status: 'published',
+    featured: true,
+    categories: ['full-stack'],
+    title: { en: 'Shatharat Games — Play & Learn', ar: 'ألعاب شذرات — العب وتعلّم' },
+    label: { en: 'Educational games · Aqwamu Qeela exhibition', ar: 'ألعاب تعليمية · معرض أقوم قيلا' },
+    summary: {
+      en: 'Six interactive learning games for children, one for each of the center’s training programs, from a dress-up game about modesty to 3D journeys.',
+      ar: 'ست ألعاب تعليمية تفاعلية للأطفال، لكل حقيبة تدريبية في المركز لعبة، من لعبة الملابس المحتشمة إلى رحلات ثلاثية الأبعاد.',
+    },
+    tools: ['JavaScript', 'HTML/CSS', '3D', 'Game design', 'Arabic UX', 'Netlify'],
+    cover_url: '/content/shatharat/games-home.webp',
+    demo_url: 'https://shatharat.netlify.app',
+    description: {
+      en: `Built for Shatharat’s corner at the **Aqwamu Qeela exhibition**, where children play on an interactive screen. Each game turns a training program into play. The site works in Arabic and English and has a full-screen mode for the exhibition screen.
+
+- **Beautiful & Modest:** dress the girl in beautiful, modest clothes for home and outside
+- **My Interactive Story:** be the hero of the story and choose what to do next
+- **A Growing Brain:** complete tasks and watch your brain grow
+- **“I’m Aware” Journey:** an interactive journey from awareness to impact
+- **Journey of Eternity:** start with a question and live the moment the universe was created, in a meditative 3D experience
+- **Intelligences Quiz:** a 3D tour to discover your interests and talents`,
+      ar: `بنيتها لركن شذرات في **معرض أقوم قيلا**، حيث يلعب الأطفال على شاشة تفاعلية، وتحوّل كل لعبة حقيبةً تدريبية إلى لعب. يعمل الموقع بالعربية والإنجليزية ويدعم وضع ملء الشاشة لشاشة المعرض.
+
+- **جميلة ومحتشمة:** ألبسي الفتاة لباساً جميلاً في البيت وخارجه
+- **قصتي التفاعلية:** كن بطل القصة واختر ماذا تفعل
+- **دماغ ينمو:** أكمل المهام وشاهد دماغك يكبر
+- **رحلة أنا واعي:** رحلة تفاعلية من الوعي إلى الأثر
+- **رحلة الخلود:** ابدأ بسؤالك… وعِش لحظة خلق الكون في تجربة تأملية ثلاثية الأبعاد
+- **اختبار الذكاءات:** جولة ثلاثية الأبعاد لاكتشاف ميولك ومواهبك`,
+    },
+  },
+  {
+    slug: 'somysterious',
+    status: 'published',
+    categories: ['full-stack'],
+    title: { en: 'SoMysterious — Surprise Outings', ar: 'SoMysterious — نزهات مفاجئة' },
+    label: { en: 'Co-founder · Web team', ar: 'شريكة مؤسسة · فريق الويب' },
+    summary: {
+      en: 'A start-up I co-founded that plans surprise outings: you book a night out, and the destination stays a mystery until you get there. I’m on the web team building the app.',
+      ar: 'شركة ناشئة شاركت في تأسيسها تخطط لنزهات مفاجئة: تحجز أمسيتك، ويبقى المكان سراً حتى تصل إليه. أعمل ضمن فريق الويب على بناء التطبيق.',
+    },
+    tools: ['Next.js', 'React', 'Supabase', 'FastAPI', 'i18n'],
+    is_ongoing: true,
+    description: {
+      en: `SoMysterious is still in development. A small team of founders builds the bilingual web app: a Next.js front end, a FastAPI back end and Supabase for accounts and data.
+
+My current part is the account settings page: name, language, password and deleting an account, with the matching API endpoint.`,
+      ar: `ما زال SoMysterious قيد التطوير، ويبني فريق صغير من المؤسسين تطبيق الويب ثنائي اللغة: واجهة Next.js، وخلفية FastAPI، وSupabase للحسابات والبيانات.
+
+أعمل حالياً على صفحة إعدادات الحساب: الاسم واللغة وكلمة المرور وحذف الحساب، مع واجهة البرمجة الخاصة بها.`,
     },
   },
   {
@@ -1078,8 +1122,8 @@ export const timeline = [
     start_date: '2026-10-04',
     is_current: true,
     description: {
-      en: 'Built and launched shatharat.qa (Supabase + Cloudflare), programmed interactive learning games for the Aqwamu Qeela exhibition, and am planning the center’s course-management system.',
-      ar: 'بنيت موقع shatharat.qa وأطلقته (Supabase وCloudflare)، وبرمجت ألعاباً تعليمية تفاعلية لمعرض أقوم قيلا، وأخطط لنظام إدارة الدورات في المركز.',
+      en: 'Built and launched shatharat.qa (Supabase + Cloudflare) and keep improving it; finished six learning games for the Aqwamu Qeela exhibition; now planning the center’s course-management system.',
+      ar: 'بنيت موقع shatharat.qa وأطلقته (Supabase وCloudflare) وأواصل تحسينه، وأنهيت ست ألعاب تعليمية لمعرض أقوم قيلا، وأخطط حالياً لنظام إدارة الدورات في المركز.',
     },
     link_url: '/projects/shatharat',
   },
@@ -1091,10 +1135,12 @@ export const timeline = [
     organization: { en: 'Al Arqam Primary Academy for Girls', ar: 'أكاديمية الأرقم الابتدائية للبنات' },
     location: { en: 'Doha, Qatar', ar: 'الدوحة، قطر' },
     start_date: '2026-10-12',
+    end_date: '2026-12-17',
     is_current: true,
+    date_label: { en: '12 Oct – 17 Dec 2026', ar: '12 أكتوبر – 17 ديسمبر 2026' },
     description: {
-      en: 'Internship running until 17 December 2026 with the IT section of the administration department.',
-      ar: 'تدريب يمتد حتى 17 ديسمبر 2026 مع قسم تقنية المعلومات في الإدارة.',
+      en: 'Internship with the IT section of the administration department, running until 17 December 2026.',
+      ar: 'تدريب مع قسم تقنية المعلومات في الإدارة يمتد حتى 17 ديسمبر 2026.',
     },
     highlights: [
       { en: 'Reset and configured student tablets for performance, security and privacy', ar: 'إعادة ضبط الأجهزة اللوحية للطالبات وإعدادها لأداء أفضل وأمان وخصوصية أعلى' },
@@ -1102,6 +1148,32 @@ export const timeline = [
       { en: 'Built a QR-code fault-reporting system: teachers scan, enter the device and trolley number and the problem, so faults are classified precisely', ar: 'بناء نظام بلاغات أعطال عبر QR: تمسح المعلمة الرمز وتُدخل رقم الجهاز والعربة والمشكلة، فتُصنَّف الأعطال بدقة' },
       { en: 'Installed the apps teachers requested on the new tablets', ar: 'تثبيت التطبيقات التي طلبتها المعلمات على الأجهزة الجديدة' },
     ],
+  },
+  {
+    key: 'somysterious',
+    kind: 'experience',
+    icon: 'sparkles',
+    title: { en: 'Co-founder & Web Team', ar: 'شريكة مؤسسة وعضوة فريق الويب' },
+    organization: { en: 'SoMysterious (start-up)', ar: 'SoMysterious (شركة ناشئة)' },
+    is_current: true,
+    description: {
+      en: 'Building the web app for a start-up that plans surprise outings with a hidden destination.',
+      ar: 'أبني تطبيق الويب لشركة ناشئة تخطط لنزهات مفاجئة بوجهة سرية.',
+    },
+    link_url: '/projects/somysterious',
+  },
+  {
+    key: 'sap-s4hana-certification',
+    kind: 'education',
+    icon: 'graduation-cap',
+    title: { en: 'Working toward SAP certification — S/4HANA Cloud Private Edition', ar: 'أستعد لشهادة SAP في S/4HANA Cloud Private Edition' },
+    organization: { en: 'SAP', ar: 'SAP' },
+    is_current: true,
+    date_label: { en: '2026', ar: '2026' },
+    description: {
+      en: 'Preparing this year for the SAP S/4HANA Cloud Private Edition certification, building on the SAP Dual Study Program.',
+      ar: 'أستعد هذا العام لشهادة SAP S/4HANA Cloud Private Edition، استكمالاً لبرنامج SAP للدراسة المزدوجة.',
+    },
   },
   {
     key: 'sap-dsp',

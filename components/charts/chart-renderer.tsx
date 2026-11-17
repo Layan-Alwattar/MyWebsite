@@ -234,10 +234,10 @@ export function ChartRenderer({
         onClick={() => setShowTable((s) => !s)}
         aria-expanded={showTable}
         aria-controls={tableId}
-        className="text-xs font-semibold underline underline-offset-2"
+        className="-ms-1 inline-flex min-h-10 items-center px-1 text-xs font-semibold underline underline-offset-2"
         style={{ color: 'var(--viz-muted)' }}
       >
-        {showTable ? 'Hide data table' : 'Show data table'}
+        {dir === 'rtl' ? (showTable ? 'إخفاء جدول البيانات' : 'إظهار جدول البيانات') : showTable ? 'Hide data table' : 'Show data table'}
       </button>
       {showTable && (
         <div id={tableId} className="max-h-72 overflow-auto rounded-xl border" style={{ borderColor: 'var(--viz-grid)' }}>

@@ -61,7 +61,7 @@ export function LanguageSwitch({ locale, dict }: { locale: Locale; dict: Diction
       hrefLang={other}
       lang={other}
       aria-label={dict.switchLanguageLabel}
-      className="rounded-full border border-[color-mix(in_srgb,var(--c-ink)_15%,transparent)] px-3 py-1.5 text-sm font-semibold text-fg transition hover:border-primary-ink hover:text-primary-ink"
+      className="inline-flex min-h-10 items-center rounded-full border border-[color-mix(in_srgb,var(--c-ink)_15%,transparent)] px-3.5 py-1.5 text-sm font-semibold text-fg transition hover:border-primary-ink hover:text-primary-ink"
     >
       {dict.switchLanguage}
     </Link>

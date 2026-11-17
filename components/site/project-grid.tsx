@@ -13,6 +13,7 @@ import { cn } from '@/lib/cn';
 import { tr, type Locale } from '@/lib/i18n';
 import type { Category, ProjectCard } from '@/lib/site/data';
 import type { Dictionary } from '@/lib/site/dictionary';
+import { LiveBadge } from './live-badge';
 import { useMotionScale } from './motion';
 
 const TILTS = ['-rotate-[1.5deg]', 'rotate-[1deg]', '-rotate-[0.5deg]', 'rotate-[1.5deg]'];
@@ -39,7 +40,7 @@ export function ProjectGrid({
   return (
     <div>
       {used.length > 1 && (
-        <div role="group" aria-label={locale === 'ar' ? 'تصفية المشاريع' : 'Filter projects'} className="mb-10 flex flex-wrap gap-2">
+        <div role="group" aria-label={locale === 'ar' ? 'تصفية المشاريع' : 'Filter projects'} className="mb-8 flex flex-wrap gap-2 sm:mb-10">
           {[{ slug: 'all', name: { en: dict.all, ar: dict.all } }, ...used].map((c) => (
             <button
               key={c.slug}
@@ -62,7 +63,7 @@ export function ProjectGrid({
       {visible.length === 0 ? (
         <p className="text-fg-muted">{dict.noProjects}</p>
       ) : (
-        <motion.ul layout={scale > 0} className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        <motion.ul layout={scale > 0} className="grid gap-x-8 gap-y-10 sm:grid-cols-2 sm:gap-y-12 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {visible.map((p, i) => (
               <motion.li
@@ -95,7 +96,7 @@ function PolaroidCard({ project: p, locale, dict, tilt, date }: { project: Proje
       )}
     >
       <span className="washi" aria-hidden />
-      <div className="relative aspect-[4/3] overflow-hidden rounded-[calc(var(--radius)*0.45)] bg-[color-mix(in_srgb,var(--c-secondary)_22%,var(--c-surface))]">
+      <div className="relative aspect-[16/10] overflow-hidden sm:aspect-[4/3] rounded-[calc(var(--radius)*0.45)] bg-[color-mix(in_srgb,var(--c-secondary)_22%,var(--c-surface))]">
         {p.cover_url ? (
           <Image
             src={p.cover_url}
@@ -107,7 +108,7 @@ function PolaroidCard({ project: p, locale, dict, tilt, date }: { project: Proje
         ) : (
           <div
             aria-hidden
-            className="grid size-full place-items-center font-display text-5xl font-semibold text-primary-ink"
+            className="grid size-full place-items-center font-display text-4xl font-semibold text-primary-ink sm:text-5xl"
             style={{ background: 'linear-gradient(135deg, color-mix(in srgb, var(--c-primary) 22%, var(--c-surface)), color-mix(in srgb, var(--c-accent) 28%, var(--c-surface)))' }}
           >
             {title.charAt(0)}
@@ -118,6 +119,7 @@ function PolaroidCard({ project: p, locale, dict, tilt, date }: { project: Proje
             <Star size={11} aria-hidden fill="currentColor" /> {dict.featured}
           </span>
         )}
+        {p.is_ongoing && <LiveBadge label={dict.inProgress} className="absolute end-2 top-2 shadow-sm" />}
       </div>
       <div className="px-1.5 pt-4">
         <div className="flex items-start justify-between gap-2">

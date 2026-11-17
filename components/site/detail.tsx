@@ -14,7 +14,7 @@ export function DetailHero({ back, eyebrow, title, intro, meta, children }: { ba
     <header className="relative isolate overflow-hidden px-4 pb-12 pt-8 sm:px-6 md:pb-16">
       <Blobs className="opacity-70" />
       <div className="mx-auto max-w-5xl">
-        <Link href={back.href} className="inline-flex items-center gap-1.5 rounded-full bg-card/70 px-3 py-1.5 text-sm font-semibold text-fg-muted backdrop-blur transition hover:text-primary-ink">
+        <Link href={back.href} className="inline-flex min-h-10 items-center gap-1.5 rounded-full bg-card/70 px-4 py-2 text-sm font-semibold text-fg-muted backdrop-blur transition hover:text-primary-ink">
           <ArrowLeft size={15} aria-hidden className="rtl:-scale-x-100" /> {back.label}
         </Link>
         <Reveal className="mt-8">

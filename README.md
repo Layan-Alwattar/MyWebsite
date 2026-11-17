@@ -74,6 +74,17 @@ supabase/migrations/    database schema, security, defaults
 | --- | --- |
 | `node scripts/build-seed.mjs` | Regenerates `supabase/seed.sql` from `supabase/seed/content.mjs`. Re-running the SQL adds new rows and refreshes rows never edited in the admin; admin edits are kept. |
 | `node scripts/build-cv.mjs` | Builds the English and Arabic CV PDFs (`public/content/cv/`) from the same content, using Edge or Chrome in headless mode. The phone number is left out on purpose. |
+| `node scripts/build-card.mjs` | Builds the printable business card (PDF with 3 mm bleed) and PNG previews in `public/content/card/`. Its QR code opens `SITE_URL/?cv`, which loads the site and downloads the CV. |
 | `python scripts/analysis/accidents_charts.py <accident.csv>` | Recomputes the Qatar traffic-accident chart data (2021–2024) into `supabase/seed/data/`. |
 
 **Sketch / cartoon photos:** in Admin → Media, select an image and choose *Sketch copy* or *Cartoon copy*. The effect runs in your browser and saves a new file; the original is kept.
+
+## Deploying to Netlify
+
+1. In Netlify, open the existing site (**layanalwattar**) → **Site configuration → Build & deploy → Continuous deployment → Link repository**, and pick `Layan-Alwattar/MyWebsite`, branch `main`. `netlify.toml` sets the build command and Node version.
+2. **Site configuration → Environment variables**, add:
+   - `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (same values as `.env.local`)
+   - `NEXT_PUBLIC_SITE_URL` = `https://layanalwattar.netlify.app`
+   - `CONTACT_HASH_SALT` = any long random text (used to rate-limit the contact form without storing IP addresses)
+3. **Deploys → Trigger deploy → Clear cache and deploy site.**
+4. In Supabase → **Authentication → URL Configuration**, set the Site URL to `https://layanalwattar.netlify.app` and add `https://layanalwattar.netlify.app/**` to the redirect URLs.

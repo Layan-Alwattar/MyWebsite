@@ -1,6 +1,7 @@
 /**
  * Server-rendered building blocks for the public site.
  */
+import { MoveHorizontal } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { cn } from '@/lib/cn';
 import { tr, type Locale } from '@/lib/i18n';
@@ -8,14 +9,23 @@ import type { SocialLink } from '@/lib/site/data';
 import type { Dictionary } from '@/lib/site/dictionary';
 import { SocialIcon } from './icon';
 import { Reveal } from './motion';
-import { btnPrimary, btnSecondary, cardClass } from './styles';
+import { btnPrimary, btnSecondary, cardClass, railItem, railScroller, railTrack } from './styles';
 
-export { btnPrimary, btnSecondary, cardClass };
+export { btnPrimary, btnSecondary, cardClass, railItem, railScroller, railTrack };
+
+/** Phone-only hint above a swipeable rail. */
+export function SwipeHint({ locale }: { locale: Locale }) {
+  return (
+    <p className="-mt-4 mb-4 flex items-center gap-1.5 text-xs font-medium text-fg-muted sm:hidden">
+      <MoveHorizontal size={14} aria-hidden /> {locale === 'ar' ? 'اسحب لرؤية المزيد' : 'Swipe to see more'}
+    </p>
+  );
+}
 
 /** A homepage section with an anchor id and consistent spacing. */
 export function Section({ id, children, className }: { id: string; children: ReactNode; className?: string }) {
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className={cn('relative scroll-mt-20 px-4 py-20 sm:px-6 md:py-28', className)}>
+    <section id={id} aria-labelledby={`${id}-title`} className={cn('relative scroll-mt-20 px-4 py-14 sm:px-6 sm:py-20 md:py-28', className)}>
       <div className="mx-auto max-w-6xl">{children}</div>
     </section>
   );
@@ -23,7 +33,7 @@ export function Section({ id, children, className }: { id: string; children: Rea
 
 export function SectionHeading({ id, eyebrow, title, intro }: { id: string; eyebrow?: string; title: string; intro?: string }) {
   return (
-    <Reveal className="mb-12 max-w-2xl">
+    <Reveal className="mb-8 max-w-2xl sm:mb-12">
       {eyebrow && (
         <p className="mb-3 inline-flex items-center gap-2 text-sm font-semibold tracking-wide text-primary-ink">
           <span aria-hidden className="text-primary">✿</span>

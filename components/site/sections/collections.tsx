@@ -9,7 +9,7 @@ import type { Analysis, Category, Certificate, Post, ProjectCard } from '@/lib/s
 import { formatDate, formatMonth, formatRange, type Dictionary } from '@/lib/site/dictionary';
 import { Stagger, StaggerItem } from '../motion';
 import { ProjectGrid } from '../project-grid';
-import { cardClass, Chip, Section, SectionHeading } from '../ui';
+import { btnSecondary, cardClass, Chip, railItem, railScroller, railTrack, Section, SectionHeading, SwipeHint } from '../ui';
 
 export function Projects({
   projects,
@@ -31,7 +31,7 @@ export function Projects({
   const sorted = [...projects].sort((a, b) => Number(b.featured) - Number(a.featured));
   const shown = limit ? sorted.slice(0, limit) : sorted;
   const dateLabels = Object.fromEntries(
-    shown.map((p) => [p.id, p.is_ongoing ? dict.ongoing : formatRange({ start: p.start_date, end: p.end_date }, locale)]),
+    shown.map((p) => [p.id, formatRange({ start: p.start_date, end: p.end_date, current: p.is_ongoing }, locale)]),
   );
 
   return (
@@ -44,9 +44,9 @@ export function Projects({
       />
       <ProjectGrid projects={shown} categories={categories} locale={locale} dict={dict} dateLabels={dateLabels} />
       {limit && projects.length > limit && (
-        <div className="mt-12 text-center">
-          <Link href={`/${locale}/projects`} className="inline-flex items-center gap-2 font-semibold text-primary-ink underline-offset-4 hover:underline">
-            {dict.viewAllProjects} <ArrowRight size={16} aria-hidden className="rtl:-scale-x-100" />
+        <div className="mt-10 text-center sm:mt-12">
+          <Link href={`/${locale}/projects`} className={btnSecondary}>
+            {dict.viewAllProjects} ({projects.length}) <ArrowRight size={16} aria-hidden className="rtl:-scale-x-100" />
           </Link>
         </div>
       )}
@@ -99,26 +99,29 @@ export function Certificates({ certificates, label, locale }: { certificates: Ce
         eyebrow={label}
         title={locale === 'ar' ? 'أتعلّم باستمرار' : 'Always learning'}
       />
-      <Stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {certificates.map((c) => (
-          <StaggerItem key={c.id}>
-            <Link href={`/${locale}/certificates/${c.slug}`} className={`${cardClass} group flex h-full flex-col overflow-hidden transition hover:-translate-y-1 motion-reduce:hover:translate-y-0`}>
-              <div className="relative aspect-[16/10] overflow-hidden bg-[color-mix(in_srgb,var(--c-accent)_18%,var(--c-surface))]">
-                {c.image_url ? (
-                  <Image src={c.image_url} alt="" fill sizes="(min-width: 1024px) 360px, (min-width: 640px) 45vw, 92vw" className="object-cover transition duration-500 group-hover:scale-105 motion-reduce:group-hover:scale-100" />
-                ) : (
-                  <Award aria-hidden className="absolute inset-0 m-auto text-primary-ink" size={40} />
-                )}
-              </div>
-              <div className="flex flex-1 flex-col p-5">
-                <h3 className="font-display text-lg font-semibold leading-snug text-fg">{tr(c.title, locale)}</h3>
-                <p className="mt-1 text-sm text-fg-muted">{tr(c.provider, locale)}</p>
-                {c.issued_on && <p className="mt-auto pt-3 text-xs font-semibold text-primary-ink">{formatMonth(c.issued_on, locale)}</p>}
-              </div>
-            </Link>
-          </StaggerItem>
-        ))}
-      </Stagger>
+      {certificates.length > 1 && <SwipeHint locale={locale} />}
+      <div className={railScroller} tabIndex={0} role="region" aria-label={label}>
+        <Stagger className={`${railTrack} sm:grid-cols-2 lg:grid-cols-3`}>
+          {certificates.map((c) => (
+            <StaggerItem key={c.id} className={`${railItem} self-stretch`}>
+              <Link href={`/${locale}/certificates/${c.slug}`} className={`${cardClass} group flex h-full flex-col overflow-hidden transition hover:-translate-y-1 motion-reduce:hover:translate-y-0`}>
+                <div className="relative aspect-[16/10] overflow-hidden bg-[color-mix(in_srgb,var(--c-accent)_18%,var(--c-surface))]">
+                  {c.image_url ? (
+                    <Image src={c.image_url} alt="" fill sizes="(min-width: 1024px) 360px, (min-width: 640px) 45vw, 92vw" className="object-cover transition duration-500 group-hover:scale-105 motion-reduce:group-hover:scale-100" />
+                  ) : (
+                    <Award aria-hidden className="absolute inset-0 m-auto text-primary-ink" size={40} />
+                  )}
+                </div>
+                <div className="flex flex-1 flex-col p-5">
+                  <h3 className="font-display text-lg font-semibold leading-snug text-fg">{tr(c.title, locale)}</h3>
+                  <p className="mt-1 text-sm text-fg-muted">{tr(c.provider, locale)}</p>
+                  {c.issued_on && <p className="mt-auto pt-3 text-xs font-semibold text-primary-ink">{formatMonth(c.issued_on, locale)}</p>}
+                </div>
+              </Link>
+            </StaggerItem>
+          ))}
+        </Stagger>
+      </div>
     </Section>
   );
 }

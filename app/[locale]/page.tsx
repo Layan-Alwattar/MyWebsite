@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { About } from '@/components/site/sections/about';
 import { Analyses, Certificates, Projects, Reflections } from '@/components/site/sections/collections';
+import { CvAutoDownload } from '@/components/site/cv-auto-download';
 import { CvQr, cvUrl } from '@/components/site/cv-qr';
 import { ContactForm } from '@/components/site/sections/contact';
 import { Hero } from '@/components/site/sections/hero';
@@ -65,7 +66,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       case 'skills':
         return <Skills key={key} categories={skills} label={label} locale={locale} />;
       case 'projects':
-        return <Projects key={key} projects={projects} categories={categories} label={label} locale={locale} dict={dict} limit={9} />;
+        return <Projects key={key} projects={projects} categories={categories} label={label} locale={locale} dict={dict} limit={6} />;
       case 'analyses':
         return <Analyses key={key} analyses={analyses} label={label} locale={locale} dict={dict} />;
       case 'certificates':
@@ -100,5 +101,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     }
   };
 
-  return <>{visible.map((s) => render(s.key, tr(s.label, locale)))}</>;
+  const cv = cvUrl(settings, locale);
+  return (
+    <>
+      {cv && <CvAutoDownload href={cv} />}
+      {visible.map((s) => render(s.key, tr(s.label, locale)))}
+    </>
+  );
 }

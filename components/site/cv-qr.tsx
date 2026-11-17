@@ -43,7 +43,7 @@ export async function CvQr({ locale, dict }: { locale: Locale; dict: Dictionary 
           href={`/${locale}/cv`}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary-ink underline-offset-4 hover:underline"
+          className="inline-flex min-h-10 items-center gap-1.5 text-sm font-semibold text-primary-ink underline-offset-4 hover:underline"
         >
           <Download size={14} aria-hidden /> {dict.downloadCv}
         </a>

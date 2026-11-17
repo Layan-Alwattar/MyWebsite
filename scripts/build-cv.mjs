@@ -58,7 +58,6 @@ const CV_PROJECTS = [
   'multi-tenant-bilingual-platform',
   'video-game-sales-predictor',
   'kalimati',
-  'project-silence',
 ];
 // Timeline entries that already appear as projects or certificates.
 const SKIP_TIMELINE = new Set(['eventura-capstone', 'deans-list', 'high-school']);
@@ -69,6 +68,8 @@ const SKIP_CERTS = new Set([
   'ai-week-2025-organizer',
   'shatharat-summer-program-2023',
   'shell-intilaaqah-2026',
+  'sap-exploring-cloud-erp', // both listed on the SAP diploma
+  'sap-rise-methodology',
   'note-taking-workshop',
   'ielts-preparation-workshop',
   'ielts-writing-task-1',

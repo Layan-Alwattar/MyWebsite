@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+/* `dark:` follows the site's theme toggle (the .dark class on <html>), not just the OS setting. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /*
  * Design tokens.
  * Fixed "blush" palette is used by the admin portal. The public site's

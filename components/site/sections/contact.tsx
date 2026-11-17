@@ -65,7 +65,7 @@ export function ContactForm({ locale, dict, email }: { locale: Locale; dict: Dic
           <Send size={16} aria-hidden className="rtl:-scale-x-100" /> {pending ? dict.sending : dict.send}
         </button>
         {email && (
-          <a href={`mailto:${email}`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary-ink hover:underline" dir="ltr">
+          <a href={`mailto:${email}`} className="inline-flex min-h-10 items-center gap-1.5 text-sm font-semibold text-primary-ink hover:underline" dir="ltr">
             <Mail size={15} aria-hidden /> {email}
           </a>
         )}

@@ -19,11 +19,17 @@ export function MotionProvider({ level, children }: { level: MotionLevel; childr
   );
 }
 
-/** 0 = no motion, 1 = subtle, 1.6 = playful. */
+/**
+ * 0 = no motion, 1 = subtle, 1.6 = playful — from the theme setting only.
+ * Use this for anything that changes rendered markup: the server can't know
+ * the visitor's reduced-motion preference, so branching on it would make the
+ * server HTML and the browser disagree (and leave content stuck invisible).
+ * Reduced motion is still honored: <MotionConfig reducedMotion="user"> turns
+ * movement off and keeps only a gentle fade.
+ */
 export function useMotionScale() {
   const level = useContext(MotionLevelContext);
-  const reduced = useReducedMotion();
-  if (reduced || level === 'off') return 0;
+  if (level === 'off') return 0;
   return level === 'playful' ? 1.6 : 1;
 }
 
@@ -89,14 +95,16 @@ export function Counter({ value, suffix = '', locale }: { value: number; suffix?
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true });
   const scale = useMotionScale();
+  const reduced = useReducedMotion();
   const [shown, setShown] = useState(scale === 0 ? value : 0);
   const format = (n: number) => new Intl.NumberFormat(locale === 'ar' ? 'ar-QA' : 'en').format(Math.round(n));
 
   useEffect(() => {
     if (!inView || scale === 0) return;
-    const controls = animate(0, value, { duration: 1.6, ease: 'easeOut', onUpdate: setShown });
+    // Reduced motion: jump straight to the final number.
+    const controls = animate(0, value, { duration: reduced ? 0 : 1.6, ease: 'easeOut', onUpdate: setShown });
     return () => controls.stop();
-  }, [inView, value, scale]);
+  }, [inView, value, scale, reduced]);
 
   return (
     <span ref={ref} className="tabular-nums">

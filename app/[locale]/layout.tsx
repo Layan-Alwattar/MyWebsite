@@ -5,7 +5,7 @@ import { CursorGlow, SiteHeader, type NavItem } from '@/components/site/chrome';
 import { MotionProvider } from '@/components/site/motion';
 import { PreviewBanner, SiteFooter } from '@/components/site/ui';
 import { isLocale, LOCALE_DIR, LOCALES, tr, type Locale } from '@/lib/i18n';
-import { getActiveTheme, getSections, getSettings, getSocialLinks } from '@/lib/site/data';
+import { getActiveTheme, getPosts, getSections, getSettings, getSocialLinks } from '@/lib/site/data';
 import { getDictionary } from '@/lib/site/dictionary';
 import { SITE_URL } from '@/lib/site/url';
 import { themeToCss } from '@/lib/theme/css';
@@ -61,18 +61,20 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   const locale: Locale = raw;
   const dict = getDictionary(locale);
 
-  const [theme, settings, sections, socials, { isEnabled: preview }] = await Promise.all([
+  const [theme, settings, sections, socials, posts, { isEnabled: preview }] = await Promise.all([
     getActiveTheme(),
     getSettings(),
     getSections(),
     getSocialLinks(),
+    getPosts(),
     draftMode(),
   ]);
 
   const name = tr(settings?.full_name, locale) || 'Layan Alwattar';
   const brand = name.split(' ')[0];
   const nav: NavItem[] = sections
-    .filter((s) => s.visible && s.key !== 'hero')
+    // No link to Reflections until there is a post to read (the section hides itself too).
+    .filter((s) => s.visible && s.key !== 'hero' && !(s.key === 'reflections' && posts.length === 0))
     .map((s) => ({ href: `/${locale}#${s.key}`, label: tr(s.label, locale) }));
 
   const fontsHref = googleFontsUrl([theme.fonts.heading, theme.fonts.body, theme.fonts.headingAr, theme.fonts.bodyAr]);
