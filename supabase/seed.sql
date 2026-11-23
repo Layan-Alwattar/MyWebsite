@@ -1076,8 +1076,8 @@ where public.certificates.created_at = public.certificates.updated_at;
 
 insert into public.certificates (id, slug, title, provider, issued_on, credential_url, image_url, pdf_url,
   summary, what_i_learned, what_i_gained, skills, status, position)
-values (md5('cert:shell-intilaaqah-2026')::uuid, 'shell-intilaaqah-2026', '{"en":"Shell Intilaaqah — Entrepreneurship Program","ar":"برنامج انطلاقة من شل — ريادة الأعمال"}'::jsonb, '{"en":"Shell Qatar × Qatar University","ar":"شل قطر × جامعة قطر"}'::jsonb, null,
-  null, null, null, '{"en":{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"“It all starts with a spark.” Completed the Shell Intilaaqah entrepreneurship program with Qatar University in 2026."}]}]},"ar":{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"«ومضة تكفي لتبدأ رحلتك نحو التألق». أتممت برنامج انطلاقة لريادة الأعمال من شل بالتعاون مع جامعة قطر في 2026."}]}]}}'::jsonb,
+values (md5('cert:shell-intilaaqah-2026')::uuid, 'shell-intilaaqah-2026', '{"en":"Shell Intilaaqah — Entrepreneurship Program","ar":"برنامج انطلاقة من شل — ريادة الأعمال"}'::jsonb, '{"en":"Shell Qatar × Qatar University","ar":"شل قطر × جامعة قطر"}'::jsonb, '2026-05-01',
+  null, '/content/certificates/shell-intilaaqah-2026.webp', null, '{"en":{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"“It all starts with a spark.” Certificate of completion for the Shell Intilaaqah – Qatar entrepreneurship program, held at Qatar University from February to May 2026."}]}]},"ar":{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"«ومضة تكفي لتبدأ رحلتك نحو التألق». شهادة إتمام برنامج انطلاقة قطر لريادة الأعمال من شل، الذي أقيم في جامعة قطر من فبراير إلى مايو 2026."}]}]}}'::jsonb,
   '{"en":null,"ar":null}'::jsonb, '{"en":null,"ar":null}'::jsonb, array['Entrepreneurship', 'Business Thinking']::text[], 'published', 3)
 on conflict (slug) do update set
   title = excluded.title, provider = excluded.provider, issued_on = excluded.issued_on, credential_url = excluded.credential_url, image_url = excluded.image_url, pdf_url = excluded.pdf_url, summary = excluded.summary, what_i_learned = excluded.what_i_learned, what_i_gained = excluded.what_i_gained, skills = excluded.skills, status = excluded.status, position = excluded.position, created_at = now()
@@ -1157,9 +1157,45 @@ where public.certificates.created_at = public.certificates.updated_at;
 
 insert into public.certificates (id, slug, title, provider, issued_on, credential_url, image_url, pdf_url,
   summary, what_i_learned, what_i_gained, skills, status, position)
+values (md5('cert:deans-list-fall-2022')::uuid, 'deans-list-fall-2022', '{"en":"Dean’s List (Fall 2022)","ar":"قائمة العميد (خريف 2022)"}'::jsonb, '{"en":"College of Arts and Sciences, Qatar University","ar":"كلية الآداب والعلوم، جامعة قطر"}'::jsonb, null,
+  null, '/content/certificates/deans-list-fall-2022.webp', null, '{"en":{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Congratulations for academic excellence and inclusion on the Dean’s List for Fall 2022."}]}]},"ar":{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"تهنئة تقديراً للتفوق في التحصيل العلمي والإدراج في قائمة العميد لفصل خريف 2022."}]}]}}'::jsonb,
+  '{"en":null,"ar":null}'::jsonb, '{"en":null,"ar":null}'::jsonb, array[]::text[], 'published', 12)
+on conflict (slug) do update set
+  title = excluded.title, provider = excluded.provider, issued_on = excluded.issued_on, credential_url = excluded.credential_url, image_url = excluded.image_url, pdf_url = excluded.pdf_url, summary = excluded.summary, what_i_learned = excluded.what_i_learned, what_i_gained = excluded.what_i_gained, skills = excluded.skills, status = excluded.status, position = excluded.position, created_at = now()
+where public.certificates.created_at = public.certificates.updated_at;
+
+insert into public.certificates (id, slug, title, provider, issued_on, credential_url, image_url, pdf_url,
+  summary, what_i_learned, what_i_gained, skills, status, position)
+values (md5('cert:deans-list-recognition-day-volunteer-2023')::uuid, 'deans-list-recognition-day-volunteer-2023', '{"en":"Volunteer — Dean’s List Recognition Day 2023","ar":"متطوعة — يوم تكريم قائمة العميد 2023"}'::jsonb, '{"en":"College of Engineering, Qatar University","ar":"كلية الهندسة، جامعة قطر"}'::jsonb, '2024-04-01',
+  null, '/content/certificates/deans-list-volunteer-2023.webp', null, '{"en":{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Certificate of appreciation for a valuable contribution as a volunteer at the Dean’s List Recognition Day 2023."}]}]},"ar":{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"شهادة تقدير للمساهمة القيّمة كمتطوعة في يوم تكريم قائمة العميد 2023."}]}]}}'::jsonb,
+  '{"en":null,"ar":null}'::jsonb, '{"en":null,"ar":null}'::jsonb, array['Volunteering', 'Event Organization']::text[], 'published', 13)
+on conflict (slug) do update set
+  title = excluded.title, provider = excluded.provider, issued_on = excluded.issued_on, credential_url = excluded.credential_url, image_url = excluded.image_url, pdf_url = excluded.pdf_url, summary = excluded.summary, what_i_learned = excluded.what_i_learned, what_i_gained = excluded.what_i_gained, skills = excluded.skills, status = excluded.status, position = excluded.position, created_at = now()
+where public.certificates.created_at = public.certificates.updated_at;
+
+insert into public.certificates (id, slug, title, provider, issued_on, credential_url, image_url, pdf_url,
+  summary, what_i_learned, what_i_gained, skills, status, position)
+values (md5('cert:srip-2026-participation')::uuid, 'srip-2026-participation', '{"en":"Summer Research Internship Program 2026 — Track 1","ar":"برنامج التدريب البحثي الصيفي 2026 — المسار الأول"}'::jsonb, '{"en":"Research and Innovation Sector, Qatar University","ar":"قطاع البحث والابتكار، جامعة قطر"}'::jsonb, '2026-05-10',
+  null, '/content/certificates/srip-2026-participation.webp', null, '{"en":{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Certificate of participation for outstanding scholarly achievement and completing the Track 1 project “AI-Supported Simulation Tools in STEM Education: A Research Internship on Problem-Solving Skills”."}]}]},"ar":{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"شهادة مشاركة تقديراً للإنجاز العلمي المتميز وإتمام مشروع المسار الأول «أدوات المحاكاة المدعومة بالذكاء الاصطناعي في تعليم العلوم والتقنية والهندسة والرياضيات: تدريب بحثي في مهارات حل المشكلات»."}]}]}}'::jsonb,
+  '{"en":null,"ar":null}'::jsonb, '{"en":null,"ar":null}'::jsonb, array['Research Methodology', 'SPSS', 'AI in Education']::text[], 'published', 14)
+on conflict (slug) do update set
+  title = excluded.title, provider = excluded.provider, issued_on = excluded.issued_on, credential_url = excluded.credential_url, image_url = excluded.image_url, pdf_url = excluded.pdf_url, summary = excluded.summary, what_i_learned = excluded.what_i_learned, what_i_gained = excluded.what_i_gained, skills = excluded.skills, status = excluded.status, position = excluded.position, created_at = now()
+where public.certificates.created_at = public.certificates.updated_at;
+
+insert into public.certificates (id, slug, title, provider, issued_on, credential_url, image_url, pdf_url,
+  summary, what_i_learned, what_i_gained, skills, status, position)
+values (md5('cert:tomer-turkish-a1')::uuid, 'tomer-turkish-a1', '{"en":"Turkish Language Course — A1","ar":"دورة اللغة التركية — المستوى A1"}'::jsonb, '{"en":"TÖMER Kayaşehir","ar":"تومر كاياشهير"}'::jsonb, '2019-09-27',
+  null, '/content/certificates/tomer-turkish-a1.webp', null, '{"en":{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Certificate of achievement for successfully completing the 60-hour A1 Turkish course (19 August – 19 September 2019)."}]}]},"ar":{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"شهادة نجاح لإتمام دورة اللغة التركية للمستوى A1 بواقع 60 ساعة (19 أغسطس – 19 سبتمبر 2019)."}]}]}}'::jsonb,
+  '{"en":null,"ar":null}'::jsonb, '{"en":null,"ar":null}'::jsonb, array['Turkish']::text[], 'published', 15)
+on conflict (slug) do update set
+  title = excluded.title, provider = excluded.provider, issued_on = excluded.issued_on, credential_url = excluded.credential_url, image_url = excluded.image_url, pdf_url = excluded.pdf_url, summary = excluded.summary, what_i_learned = excluded.what_i_learned, what_i_gained = excluded.what_i_gained, skills = excluded.skills, status = excluded.status, position = excluded.position, created_at = now()
+where public.certificates.created_at = public.certificates.updated_at;
+
+insert into public.certificates (id, slug, title, provider, issued_on, credential_url, image_url, pdf_url,
+  summary, what_i_learned, what_i_gained, skills, status, position)
 values (md5('cert:shatharat-summer-program-2023')::uuid, 'shatharat-summer-program-2023', '{"en":"Trainer — “Skill & Science” Summer Program 2023","ar":"مدرّبة — البرنامج الصيفي «مهارة وعلم» 2023"}'::jsonb, '{"en":"Shatharat Educational Training Center (licensed by the Ministry of Education)","ar":"مركز شذرات للتدريب التربوي (بترخيص وزارة التربية والتعليم)"}'::jsonb, '2023-08-01',
-  null, null, null, '{"en":{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Certificate of attendance and participation for delivering 39 training hours of workshops for children, 2–30 July 2023."}]}]},"ar":{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"شهادة حضور ومشاركة لتقديم ورش ومهارات تربوية للأطفال بواقع 39 ساعة تدريبية، من 2 إلى 30 يوليو 2023."}]}]}}'::jsonb,
-  '{"en":null,"ar":null}'::jsonb, '{"en":null,"ar":null}'::jsonb, array['Teaching', 'Workshop Facilitation']::text[], 'published', 12)
+  null, '/content/certificates/shatharat-summer-2023.webp', null, '{"en":{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Certificate of attendance and participation for delivering 39 training hours of workshops for children, 2–30 July 2023."}]}]},"ar":{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"شهادة حضور ومشاركة لتقديم ورش ومهارات تربوية للأطفال بواقع 39 ساعة تدريبية، من 2 إلى 30 يوليو 2023."}]}]}}'::jsonb,
+  '{"en":null,"ar":null}'::jsonb, '{"en":null,"ar":null}'::jsonb, array['Teaching', 'Workshop Facilitation']::text[], 'published', 16)
 on conflict (slug) do update set
   title = excluded.title, provider = excluded.provider, issued_on = excluded.issued_on, credential_url = excluded.credential_url, image_url = excluded.image_url, pdf_url = excluded.pdf_url, summary = excluded.summary, what_i_learned = excluded.what_i_learned, what_i_gained = excluded.what_i_gained, skills = excluded.skills, status = excluded.status, position = excluded.position, created_at = now()
 where public.certificates.created_at = public.certificates.updated_at;
@@ -1168,7 +1204,7 @@ insert into public.certificates (id, slug, title, provider, issued_on, credentia
   summary, what_i_learned, what_i_gained, skills, status, position)
 values (md5('cert:iqra-teacher-training')::uuid, 'iqra-teacher-training', '{"en":"Iqra Curriculum Teacher Training — Teaching Arabic","ar":"دورة تأهيل المعلمين لمنهاج اقرأ في تعليم اللغة العربية"}'::jsonb, '{"en":"Dar Al Quran (Canada) × Minhaj, hosted by Shatharat Center","ar":"مؤسسة دار القرآن العالمية بكندا × شركة منهاج، برعاية مركز شذرات"}'::jsonb, '2023-06-14',
   null, '/content/certificates/iqra-teacher-training.webp', '/content/certificates/iqra-teacher-training.pdf', '{"en":{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Teacher training in the Iqra curriculum for teaching Arabic to native and non-native speakers."}]}]},"ar":{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"تأهيل المعلمين لتدريس منهاج اقرأ في تعليم اللغة العربية للناطقين بها وبغيرها."}]}]}}'::jsonb,
-  '{"en":null,"ar":null}'::jsonb, '{"en":null,"ar":null}'::jsonb, array['Teaching', 'Arabic']::text[], 'published', 13)
+  '{"en":null,"ar":null}'::jsonb, '{"en":null,"ar":null}'::jsonb, array['Teaching', 'Arabic']::text[], 'published', 17)
 on conflict (slug) do update set
   title = excluded.title, provider = excluded.provider, issued_on = excluded.issued_on, credential_url = excluded.credential_url, image_url = excluded.image_url, pdf_url = excluded.pdf_url, summary = excluded.summary, what_i_learned = excluded.what_i_learned, what_i_gained = excluded.what_i_gained, skills = excluded.skills, status = excluded.status, position = excluded.position, created_at = now()
 where public.certificates.created_at = public.certificates.updated_at;
@@ -1177,7 +1213,7 @@ insert into public.certificates (id, slug, title, provider, issued_on, credentia
   summary, what_i_learned, what_i_gained, skills, status, position)
 values (md5('cert:note-taking-workshop')::uuid, 'note-taking-workshop', '{"en":"Note-Taking & Summarizing Workshop","ar":"ورشة تدوين الملاحظات وإعداد الملخصات"}'::jsonb, '{"en":"Student Learning Support Center, Qatar University","ar":"مركز دعم تعلّم الطلاب، جامعة قطر"}'::jsonb, '2022-12-01',
   null, '/content/certificates/note-taking-workshop.webp', '/content/certificates/note-taking-workshop.pdf', '{"en":null,"ar":null}'::jsonb,
-  '{"en":null,"ar":null}'::jsonb, '{"en":null,"ar":null}'::jsonb, array['Study Skills']::text[], 'published', 14)
+  '{"en":null,"ar":null}'::jsonb, '{"en":null,"ar":null}'::jsonb, array['Study Skills']::text[], 'published', 18)
 on conflict (slug) do update set
   title = excluded.title, provider = excluded.provider, issued_on = excluded.issued_on, credential_url = excluded.credential_url, image_url = excluded.image_url, pdf_url = excluded.pdf_url, summary = excluded.summary, what_i_learned = excluded.what_i_learned, what_i_gained = excluded.what_i_gained, skills = excluded.skills, status = excluded.status, position = excluded.position, created_at = now()
 where public.certificates.created_at = public.certificates.updated_at;
@@ -1186,7 +1222,7 @@ insert into public.certificates (id, slug, title, provider, issued_on, credentia
   summary, what_i_learned, what_i_gained, skills, status, position)
 values (md5('cert:ielts-preparation-workshop')::uuid, 'ielts-preparation-workshop', '{"en":"How to Prepare for Your IELTS Test (Reading, Listening & Speaking)","ar":"الاستعداد لاختبار IELTS (القراءة والاستماع والمحادثة)"}'::jsonb, '{"en":"Section of Writing and Language Support, Qatar University","ar":"قسم دعم الكتابة واللغة، جامعة قطر"}'::jsonb, '2022-12-01',
   null, '/content/certificates/ielts-preparation.webp', '/content/certificates/ielts-preparation.pdf', '{"en":null,"ar":null}'::jsonb,
-  '{"en":null,"ar":null}'::jsonb, '{"en":null,"ar":null}'::jsonb, array['English']::text[], 'published', 15)
+  '{"en":null,"ar":null}'::jsonb, '{"en":null,"ar":null}'::jsonb, array['English']::text[], 'published', 19)
 on conflict (slug) do update set
   title = excluded.title, provider = excluded.provider, issued_on = excluded.issued_on, credential_url = excluded.credential_url, image_url = excluded.image_url, pdf_url = excluded.pdf_url, summary = excluded.summary, what_i_learned = excluded.what_i_learned, what_i_gained = excluded.what_i_gained, skills = excluded.skills, status = excluded.status, position = excluded.position, created_at = now()
 where public.certificates.created_at = public.certificates.updated_at;
@@ -1195,7 +1231,7 @@ insert into public.certificates (id, slug, title, provider, issued_on, credentia
   summary, what_i_learned, what_i_gained, skills, status, position)
 values (md5('cert:ielts-writing-task-1')::uuid, 'ielts-writing-task-1', '{"en":"IELTS Writing Task 1 — A Practical Guide","ar":"الكتابة في IELTS (المهمة الأولى) — دليل عملي"}'::jsonb, '{"en":"Section of Writing and Language Support, Qatar University","ar":"قسم دعم الكتابة واللغة، جامعة قطر"}'::jsonb, '2022-12-01',
   null, '/content/certificates/ielts-writing-task1.webp', '/content/certificates/ielts-writing-task1.pdf', '{"en":null,"ar":null}'::jsonb,
-  '{"en":null,"ar":null}'::jsonb, '{"en":null,"ar":null}'::jsonb, array['English', 'Academic Writing']::text[], 'published', 16)
+  '{"en":null,"ar":null}'::jsonb, '{"en":null,"ar":null}'::jsonb, array['English', 'Academic Writing']::text[], 'published', 20)
 on conflict (slug) do update set
   title = excluded.title, provider = excluded.provider, issued_on = excluded.issued_on, credential_url = excluded.credential_url, image_url = excluded.image_url, pdf_url = excluded.pdf_url, summary = excluded.summary, what_i_learned = excluded.what_i_learned, what_i_gained = excluded.what_i_gained, skills = excluded.skills, status = excluded.status, position = excluded.position, created_at = now()
 where public.certificates.created_at = public.certificates.updated_at;
@@ -1204,7 +1240,7 @@ insert into public.certificates (id, slug, title, provider, issued_on, credentia
   summary, what_i_learned, what_i_gained, skills, status, position)
 values (md5('cert:alif-lam-meem-al-baqarah')::uuid, 'alif-lam-meem-al-baqarah', '{"en":"Qur’an Recitation — Surat Al-Baqarah","ar":"تسميع سورة البقرة"}'::jsonb, '{"en":"Alif Lam Meem for Islamic Distance Education","ar":"ألف لام ميم للتعليم الشرعي عن بُعد"}'::jsonb, '2024-03-29',
   null, null, null, '{"en":null,"ar":null}'::jsonb,
-  '{"en":null,"ar":null}'::jsonb, '{"en":null,"ar":null}'::jsonb, array[]::text[], 'draft', 17)
+  '{"en":null,"ar":null}'::jsonb, '{"en":null,"ar":null}'::jsonb, array[]::text[], 'draft', 21)
 on conflict (slug) do update set
   title = excluded.title, provider = excluded.provider, issued_on = excluded.issued_on, credential_url = excluded.credential_url, image_url = excluded.image_url, pdf_url = excluded.pdf_url, summary = excluded.summary, what_i_learned = excluded.what_i_learned, what_i_gained = excluded.what_i_gained, skills = excluded.skills, status = excluded.status, position = excluded.position, created_at = now()
 where public.certificates.created_at = public.certificates.updated_at;
